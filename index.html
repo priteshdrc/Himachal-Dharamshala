@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Diwali Trip · Punjab & Himachal</title>
+  <meta name="description" content="Day-by-day guide for the Diwali trip to Punjab and Himachal Pradesh, 8–17 November 2026: Amritsar, Dalhousie, Dharamshala, Kangra, Bir, Lahaul, Mandi.">
+  <meta name="theme-color" content="#1d2b45">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <svg class="hero-art" viewBox="0 0 400 220" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 150 L55 95 L85 120 L135 60 L170 100 L205 75 L250 125 L290 85 L340 130 L400 90 L400 220 L0 220Z" fill="#c9d6ec" opacity=".35"/>
+      <path d="M135 60 L150 77 L142 76 L135 84 L127 74 L120 76Z M205 75 L216 87 L208 86 L203 92 L197 84Z M290 85 L302 98 L294 97 L288 103 L282 95Z" fill="#fff" opacity=".8"/>
+      <path d="M0 175 L45 140 L90 165 L140 125 L190 160 L240 130 L300 170 L350 145 L400 165 L400 220 L0 220Z" fill="#26375a"/>
+      <path d="M0 200 L60 180 L120 195 L180 175 L250 196 L320 182 L400 198 L400 220 L0 220Z" fill="#172238"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="topbar">
+        <span class="brand"><span class="diya" aria-hidden="true"></span><span data-i18n="brand"></span></span>
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="gu">ગુજ</button>
+        </div>
+      </div>
+      <h1 id="title"></h1>
+      <p class="dates" id="dates"></p>
+      <ol class="route" id="route"></ol>
+      <a class="status" id="status" href="#"></a>
+    </div>
+  </header>
+
+  <nav class="daynav" id="daynav" aria-label="Days"></nav>
+
+  <main>
+    <aside class="note" id="note"></aside>
+
+    <section class="glance" aria-labelledby="glance-h">
+      <h2 id="glance-h" data-i18n="glance"></h2>
+      <div class="glance-grid">
+        <div class="panel">
+          <h3 data-i18n="nights"></h3>
+          <ul class="nights" id="nights"></ul>
+        </div>
+        <div class="panel">
+          <h3 data-i18n="trains"></h3>
+          <div id="trains"></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="days"></div>
+  </main>
+
+  <footer class="foot">
+    <p data-i18n="footer"></p>
+    <p class="offline" id="offline" hidden data-i18n="offline"></p>
+  </footer>
+
+  <a class="totop" href="#" aria-label="Back to top">↑</a>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
