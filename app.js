@@ -36,7 +36,6 @@
       en: "Made from our family trip plan. Photos from Wikimedia Commons. Booking numbers are partly hidden; check your email or SMS for the full numbers.",
       gu: "અમારા પારિવારિક પ્રવાસ આયોજન પરથી બનાવેલ. ફોટો: Wikimedia Commons. બુકિંગ નંબર આંશિક રીતે છુપાવેલ છે; સંપૂર્ણ નંબર માટે ઇમેઇલ અથવા SMS જુઓ.",
     },
-    offline: { en: "✓ Saved for offline use — works without network in the mountains.", gu: "✓ ઑફલાઇન માટે સાચવેલ — પહાડોમાં નેટવર્ક વગર પણ ચાલશે." },
   };
 
   const ICON = {
@@ -304,13 +303,12 @@
     });
   }
 
-  if ("serviceWorker" in navigator && location.protocol === "https:") {
-    navigator.serviceWorker
-      .register("sw.js")
-      .then(() => navigator.serviceWorker.ready)
-      .then(() => {
-        $("#offline").hidden = false;
-      })
-      .catch(() => {});
+  // No caching: remove the offline service worker and its saved copies
+  // from phones that opened an earlier version of the site.
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((r) => r.unregister())).catch(() => {});
+  }
+  if ("caches" in window) {
+    caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(() => {});
   }
 })();
