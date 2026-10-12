@@ -130,8 +130,6 @@
   }
 
   function renderGlance() {
-    $("#note").innerHTML = `<span class="note-icon" aria-hidden="true">!</span><p>${t(trip.note)}</p>`;
-
     $("#nights").innerHTML = trip.days
       .map((d) => {
         const s = d.stay;

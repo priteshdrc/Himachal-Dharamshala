@@ -27,10 +27,6 @@ window.TRIP = {
     T("Mandi", "મંડી"),
     T("Chandigarh", "ચંડીગઢ"),
   ],
-  note: T(
-    "<strong>Spiti / Kaza is not on this plan.</strong> Kaza is a 10 to 12-hour drive one way from Sissu over the Kunzum Pass, so it can't be done as a day trip. By mid-November, Kunzum Pass is almost always closed due to heavy snow. This itinerary routes you through the snowy Lahaul Valley (Keylong) instead.",
-    "<strong>સ્પીતિ / કાઝા આ પ્રવાસમાં નથી.</strong> કુંઝુમ પાસ થઈને સિસ્સુથી કાઝા જવાનો એક તરફનો રસ્તો 10 થી 12 કલાકનો ડ્રાઇવ છે, તેથી દિવસની મુલાકાત શક્ય નથી. નવેમ્બરના મધ્ય સુધીમાં, ભારે બરફવર્ષાને કારણે કુંઝુમ પાસ લગભગ હંમેશા બંધ રહે છે. આ પ્રવાસ કાર્યક્રમ તમને બરફ આચ્છાદિત લાહૌલ ખીણ (કેલોંગ) તરફ લઈ જાય છે."
-  ),
 
   trains: [
     {

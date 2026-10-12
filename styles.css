@@ -152,22 +152,9 @@ svg { width: 1.1em; height: 1.1em; flex: none; fill: none; stroke: currentColor;
 /* ---------- Main ---------- */
 main { max-width: 880px; margin: 0 auto; padding: 0 16px; }
 main > * { position: relative; }
-.note {
-  display: flex; gap: 12px; align-items: flex-start;
-  margin: 20px 0 22px;
-  background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
-  padding: 16px; border-left: 4px solid var(--accent);
-}
-.note p { margin: 0; font-size: 15px; color: var(--ink-2); }
-.note strong { color: var(--ink); }
-.note-icon {
-  flex: none; width: 26px; height: 26px; border-radius: 50%;
-  display: grid; place-items: center; font-weight: 800; font-size: 14px;
-  background: var(--accent-soft); color: var(--accent);
-}
 
 h2, h3 { margin: 0; }
-.glance h2 { font-family: var(--display); font-size: 24px; margin: 6px 0 12px; }
+.glance h2 { font-family: var(--display); font-size: 24px; margin: 22px 0 12px; }
 .glance-grid { display: grid; gap: 14px; }
 .panel { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
 .panel h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
@@ -351,6 +338,5 @@ body.gu .places-h { text-transform: none; letter-spacing: 0; font-size: 14px; }
   .daynav, .totop, .lang, .status, .places, .btn { display: none !important; }
   .hero { background: none; color: #000; }
   .hero-art { display: none; }
-  .note { margin-top: 0; }
   .day { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
 }
