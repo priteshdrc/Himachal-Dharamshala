@@ -30,6 +30,16 @@
     depart: { en: "Departs", gu: "રવાના" },
     arrive: { en: "Arrives", gu: "આગમન" },
     tip: { en: "Tip", gu: "નોંધ" },
+    food: { en: "Where to eat · vegetarian", gu: "ક્યાં જમવું · શાકાહારી" },
+    pureVeg: { en: "Pure veg", gu: "શુદ્ધ શાકાહારી" },
+    vegOptions: { en: "Veg options (not pure veg)", gu: "શાકાહારી વિકલ્પ (શુદ્ધ શાકાહારી નથી)" },
+    order: { en: "Try", gu: "શું મંગાવવું" },
+    backup: { en: "Backup", gu: "બીજો વિકલ્પ" },
+    onMaps: { en: "Open in Maps", gu: "નકશામાં ખોલો" },
+    meal: {
+      en: { breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", train: "On the train" },
+      gu: { breakfast: "નાસ્તો", lunch: "બપોરનું ભોજન", dinner: "રાત્રિ ભોજન", snack: "નાસ્તો / મીઠાઈ", train: "ટ્રેનમાં ભોજન" },
+    },
     toGo: { en: (n) => (n === 1 ? "1 day to go" : `${n} days to go`), gu: (n) => `${n} દિવસ બાકી` },
     today: { en: (n) => `Today is Day ${n} · see plan`, gu: (n) => `આજે દિવસ ${n} · કાર્યક્રમ જુઓ` },
     done: { en: "Trip completed · Happy Diwali!", gu: "યાત્રા પૂર્ણ · શુભ દિવાળી!" },
@@ -157,6 +167,30 @@
       </div>`;
   }
 
+  const vegMark = (pure) =>
+    `<span class="veg${pure ? "" : " partial"}" title="${esc(ui(pure ? "pureVeg" : "vegOptions"))}"><i aria-hidden="true"></i>${esc(ui(pure ? "pureVeg" : "vegOptions"))}</span>`;
+
+  function foodCard(f) {
+    const mapLink = (q, label) =>
+      `<a class="food-map" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}" target="_blank" rel="noopener">${ICON.pin}<span>${esc(label)}</span></a>`;
+    return `
+      <li class="food">
+        <div class="food-top"><span class="food-meal">${esc(ui("meal")[f.meal])}${f.time ? " · " + esc(t(f.time)) : ""}</span>${vegMark(f.pure !== false)}</div>
+        <b class="food-name">${esc(t(f.name))}</b>
+        ${f.area ? `<p class="food-area">${esc(t(f.area))}</p>` : ""}
+        ${f.order ? `<p class="food-order"><b>${esc(ui("order"))}:</b> ${esc(t(f.order))}</p>` : ""}
+        ${f.note ? `<p class="food-note">${esc(t(f.note))}</p>` : ""}
+        ${f.query ? mapLink(f.query, ui("onMaps")) : ""}
+        ${
+          f.alt
+            ? `<p class="food-alt"><b>${esc(ui("backup"))}:</b> ${esc(t(f.alt.name))}${f.alt.area ? " — " + esc(t(f.alt.area)) : ""}${
+                f.alt.pure === false ? " (" + esc(ui("vegOptions")) + ")" : ""
+              }${f.alt.query ? " " + mapLink(f.alt.query, "") : ""}</p>`
+            : ""
+        }
+      </li>`;
+  }
+
   function stayCard(d) {
     const s = d.stay;
     if (!s) return "";
@@ -225,6 +259,12 @@
           <ol class="timeline" aria-label="${esc(ui("plan"))}">${items}</ol>
 
           ${d.train != null ? trainCard(trip.trains[d.train]) : ""}
+          ${
+            d.food && d.food.length
+              ? `<h3 class="places-h">${esc(ui("food"))}</h3><ul class="foods">${d.food.map(foodCard).join("")}</ul>`
+              : ""
+          }
+
           ${stayCard(d)}
 
           <p class="night">${ICON.moon}<span><b>${esc(ui("night"))}:</b> ${esc(t(d.night))}</span></p>
