@@ -49,7 +49,7 @@
     peak: '<svg viewBox="0 0 64 40" aria-hidden="true"><path d="M0 40 L20 12 L28 22 L38 6 L64 40Z"/><path d="M38 6 L44 14 L40 13 L37 17 L34 12Z" fill="#fff" opacity=".85"/></svg>',
   };
 
-  let lang = "en";
+  let lang = "gu";
   try {
     const saved = localStorage.getItem("lang");
     if (saved === "en" || saved === "gu") lang = saved;
@@ -73,6 +73,11 @@
   }
   const today = todayIST();
   const todayDay = trip.days.find((d) => d.date === today);
+
+  // "2019-11" -> "Nov 2019" / "નવે 2019": when the photo was taken.
+  function fmtMonth(ym) {
+    return new Intl.DateTimeFormat(locale(), { month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(ym + "-15T00:00:00Z"));
+  }
 
   function photoUrl(file) {
     return "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(file) + "?width=640";
@@ -179,7 +184,7 @@
       : "";
     return `
       <a class="place${p.file ? "" : " noimg"}" href="${esc(href)}" target="_blank" rel="noopener">
-        <span class="ph">${ICON.peak}${img}</span>
+        <span class="ph">${ICON.peak}${img}${p.taken ? `<span class="when">${esc(fmtMonth(p.taken))}</span>` : ""}</span>
         <span class="cap">${esc(t(p.name))}</span>
       </a>`;
   }
