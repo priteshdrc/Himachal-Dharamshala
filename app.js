@@ -32,7 +32,8 @@
     tip: { en: "Tip", gu: "નોંધ" },
     food: { en: "Where to eat · vegetarian", gu: "ક્યાં જમવું · શાકાહારી" },
     pureVeg: { en: "Pure veg", gu: "શુદ્ધ શાકાહારી" },
-    vegOptions: { en: "Veg options (not pure veg)", gu: "શાકાહારી વિકલ્પ (શુદ્ધ શાકાહારી નથી)" },
+    vegEgg: { en: "Veg · serves egg", gu: "શાકાહારી · ઈંડું પણ મળે" },
+    vegAsk: { en: "Veg food · ask", gu: "શાકાહારી મળે · પૂછો" },
     order: { en: "Try", gu: "શું મંગાવવું" },
     backup: { en: "Backup", gu: "બીજો વિકલ્પ" },
     onMaps: { en: "Open in Maps", gu: "નકશામાં ખોલો" },
@@ -165,15 +166,17 @@
       </div>`;
   }
 
+  // pure: true = pure veg, "egg" = no meat but serves egg, false = not confirmed.
+  const vegKey = (pure) => (pure === true ? "pureVeg" : pure === "egg" ? "vegEgg" : "vegAsk");
   const vegMark = (pure) =>
-    `<span class="veg${pure ? "" : " partial"}" title="${esc(ui(pure ? "pureVeg" : "vegOptions"))}"><i aria-hidden="true"></i>${esc(ui(pure ? "pureVeg" : "vegOptions"))}</span>`;
+    `<span class="veg${pure === true ? "" : " partial"}"><i aria-hidden="true"></i>${esc(ui(vegKey(pure)))}</span>`;
 
   function foodCard(f) {
     const mapLink = (q, label) =>
       `<a class="food-map" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}" target="_blank" rel="noopener">${ICON.pin}<span>${esc(label)}</span></a>`;
     return `
       <li class="food">
-        <div class="food-top"><span class="food-meal">${esc(ui("meal")[f.meal])}${f.time ? " · " + esc(t(f.time)) : ""}</span>${vegMark(f.pure !== false)}</div>
+        <div class="food-top"><span class="food-meal">${esc(ui("meal")[f.meal])}${f.time ? " · " + esc(t(f.time)) : ""}</span>${vegMark(f.pure)}</div>
         <b class="food-name">${esc(t(f.name))}</b>
         ${f.area ? `<p class="food-area">${esc(t(f.area))}</p>` : ""}
         ${f.order ? `<p class="food-order"><b>${esc(ui("order"))}:</b> ${esc(t(f.order))}</p>` : ""}
@@ -182,7 +185,7 @@
         ${
           f.alt
             ? `<p class="food-alt"><b>${esc(ui("backup"))}:</b> ${esc(t(f.alt.name))}${f.alt.area ? " — " + esc(t(f.alt.area)) : ""}${
-                f.alt.pure === false ? " (" + esc(ui("vegOptions")) + ")" : ""
+                f.alt.pure === true ? "" : " (" + esc(ui(vegKey(f.alt.pure))) + ")"
               }${f.alt.query ? " " + mapLink(f.alt.query, "") : ""}</p>`
             : ""
         }

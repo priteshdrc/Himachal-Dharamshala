@@ -11,7 +11,7 @@ Amritsar → Dalhousie → Dharamshala / McLeod Ganj → Kangra → Bir → Kull
 
 ## Editing the trip
 
-All content is in [`data.js`](data.js). Change a time, hotel or booking status there and push; the site updates.
+All content is in [`data.js`](data.js); vegetarian restaurant picks are in [`food.js`](food.js). Change a time, hotel or booking status there and push; the site updates.
 When a pending hotel gets booked, change its `status` to `"confirmed"` and add `name`, `map`, `via`, `checkin` and `checkout`.
 
 Booking numbers (PNRs and booking IDs) are partly hidden because the published site is public.
