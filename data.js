@@ -4,8 +4,9 @@
    photo was taken (YYYY-MM; November/December photos chosen where available). */
 
 const T = (en, gu) => ({ en, gu });
-const mapsSearch = (q) => "https://www.google.com/maps/search/" + q;
-const mapsPin = (lat, lng) => `https://www.google.com/maps?q=${lat},${lng}`;
+// Google Maps links (official URL format; opens the Maps app on phones).
+const mapsFind = (q) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+const mapsDir = (q) => "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=" + encodeURIComponent(q);
 
 window.TRIP = {
   start: "2026-11-08",
@@ -129,7 +130,7 @@ window.TRIP = {
       stay: {
         status: "pending",
         name: T("Hotel near the Golden Temple", "ગોલ્ડન ટેમ્પલ નજીક હોટેલ"),
-        map: mapsSearch("Hotels+near+Golden+Temple+Amritsar"),
+        map: mapsFind("Hotels near Golden Temple, Amritsar"),
         mapLabel: T("Find hotels on Google Maps", "Google Maps પર હોટેલ શોધો"),
       },
       night: T("Amritsar", "અમૃતસર"),
@@ -177,7 +178,8 @@ window.TRIP = {
       stay: {
         status: "confirmed",
         name: T("Hotel Himdhara Dalhousie", "Hotel Himdhara Dalhousie"),
-        map: mapsPin(32.539207, 75.97465),
+        map: mapsFind("Hotel Himdhara, Baloon Church Road, Dalhousie, Himachal Pradesh 176304"),
+        directions: mapsDir("Hotel Himdhara, Baloon Church Road, Dalhousie, Himachal Pradesh 176304"),
         via: "MakeMyTrip",
         id: "NH••••••••0644",
         address: T(
@@ -209,7 +211,8 @@ window.TRIP = {
       stay: {
         status: "confirmed",
         name: T("Hotel Pine View", "Hotel Pine View"),
-        map: mapsPin(32.21603, 76.30299),
+        map: mapsFind("Hotel Pine View, Sudher, Dharamshala, Himachal Pradesh 176215"),
+        directions: mapsDir("Hotel Pine View, Sudher, Dharamshala, Himachal Pradesh 176215"),
         via: "MakeMyTrip",
         id: "NH••••••••9134",
         address: T("VPO Sudher, Dharamshala – 176215", "VPO સુધેર, ધર્મશાળા – 176215"),
@@ -247,7 +250,8 @@ window.TRIP = {
       stay: {
         status: "confirmed",
         name: T("Hotel Pine View", "Hotel Pine View"),
-        map: mapsPin(32.21603, 76.30299),
+        map: mapsFind("Hotel Pine View, Sudher, Dharamshala, Himachal Pradesh 176215"),
+        directions: mapsDir("Hotel Pine View, Sudher, Dharamshala, Himachal Pradesh 176215"),
         nights: T("Night 2 of 2", "બીજી રાત"),
       },
       night: T("Dharamshala / McLeod Ganj", "ધર્મશાળા / મેકલિયોડ ગંજ"),
@@ -292,7 +296,7 @@ window.TRIP = {
       stay: {
         status: "pending",
         name: T("Hotel in Kangra", "કાંગડામાં હોટેલ"),
-        map: mapsSearch("Hotels+in+Kangra"),
+        map: mapsFind("Hotels in Kangra, Himachal Pradesh"),
         mapLabel: T("Find hotels on Google Maps", "Google Maps પર હોટેલ શોધો"),
       },
       night: T("Kangra", "કાંગડા"),
@@ -321,7 +325,7 @@ window.TRIP = {
       stay: {
         status: "pending",
         name: T("Hotel in Kullu", "કુલ્લુમાં હોટેલ"),
-        map: mapsSearch("Hotels+in+Kullu"),
+        map: mapsFind("Hotels in Kullu, Himachal Pradesh"),
         mapLabel: T("Find hotels on Google Maps", "Google Maps પર હોટેલ શોધો"),
       },
       night: T("Kullu", "કુલ્લુ"),
@@ -346,10 +350,11 @@ window.TRIP = {
       stay: {
         status: "confirmed",
         name: T("Valley View Homestay Fuktal, Lahaul", "Valley View Homestay Fuktal, Lahaul"),
-        map: mapsPin(32.513077, 77.02082),
+        map: mapsFind("Valley View Homestay, Gondla, Lahaul, Himachal Pradesh 175140"),
+        directions: mapsDir("Valley View Homestay, Gondla, Lahaul, Himachal Pradesh 175140"),
         via: "Goibibo",
         id: "GH••••••••0370",
-        address: T("Village Fuktal, Lahaul – 175140", "ગામ ફુકતાલ, લાહૌલ – 175140"),
+        address: T("Village Fuktal, Gondla, Lahaul – 175140", "ગામ ફુકતાલ, ગોંદલા, લાહૌલ – 175140"),
         checkin: T("Sun 15 Nov, 12:00 – 02:00 PM", "રવિ 15 નવે, બપોરે 12:00 – 02:00"),
         checkout: T("Mon 16 Nov, before 10:00 AM", "સોમ 16 નવે, સવારે 10:00 પહેલાં"),
       },
@@ -383,7 +388,7 @@ window.TRIP = {
       stay: {
         status: "pending",
         name: T("Hotel in Mandi, by the Beas River", "મંડીમાં બિયાસ નદી કિનારે હોટેલ"),
-        map: mapsSearch("Hotels+in+Mandi"),
+        map: mapsFind("Hotels near Beas River, Mandi, Himachal Pradesh"),
         mapLabel: T("Find hotels on Google Maps", "Google Maps પર હોટેલ શોધો"),
       },
       night: T("Mandi", "મંડી"),

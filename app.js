@@ -21,7 +21,8 @@
     bookingId: { en: "Booking ID", gu: "બુકિંગ ID" },
     checkin: { en: "Check-in", gu: "ચેક-ઇન" },
     checkout: { en: "Check-out", gu: "ચેક-આઉટ" },
-    openMap: { en: "Open in Maps", gu: "નકશામાં ખોલો" },
+    openMap: { en: "Hotel on Maps", gu: "નકશામાં હોટેલ" },
+    directions: { en: "Directions", gu: "રસ્તો બતાવો" },
     pnr: { en: "PNR", gu: "PNR" },
     cls: { en: "Class", gu: "ક્લાસ" },
     coach: { en: "Coach", gu: "કોચ" },
@@ -172,7 +173,10 @@
         <div class="stay-head">${ICON.bed}<div><small>${esc(ui("stay"))}</small><b>${esc(t(s.name))}</b></div><span class="badge ${s.status}">${esc(ui(s.status))}</span></div>
         ${rows.join("")}
         ${facts.length ? `<dl class="facts">${facts.join("")}</dl>` : ""}
-        <a class="btn" href="${esc(s.map)}" target="_blank" rel="noopener">${ICON.pin}<span>${esc(s.mapLabel ? t(s.mapLabel) : ui("openMap"))}</span></a>
+        <div class="btns">
+          <a class="btn" href="${esc(s.map)}" target="_blank" rel="noopener">${ICON.pin}<span>${esc(s.mapLabel ? t(s.mapLabel) : ui("openMap"))}</span></a>
+          ${s.directions ? `<a class="btn btn-alt" href="${esc(s.directions)}" target="_blank" rel="noopener">${ICON.car}<span>${esc(ui("directions"))}</span></a>` : ""}
+        </div>
       </div>`;
   }
 
