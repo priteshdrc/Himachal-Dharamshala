@@ -1,6 +1,6 @@
 // Offline support: the itinerary keeps working with no signal in the mountains.
-const CORE = "trip-core-v1";
-const PHOTOS = "trip-photos-v1";
+const CORE = "trip-core-v2";
+const PHOTOS = "trip-photos-v2";
 const FILES = ["./", "index.html", "styles.css", "data.js", "app.js", "icon.svg", "manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

@@ -1,11 +1,9 @@
 /* Trip data — edit this file to update the itinerary.
    Every text field has an English (en) and Gujarati (gu) version.
-   Photos: `file` is a Wikimedia Commons file name (shown as a thumbnail),
-   `link` is where tapping the photo goes. */
+   Photos: `file` is a Wikimedia Commons file name, `taken` is the month the
+   photo was taken (YYYY-MM; November/December photos chosen where available). */
 
 const T = (en, gu) => ({ en, gu });
-const commons = (name) => "https://commons.wikimedia.org/wiki/File:" + name;
-const commonsCat = (name) => "https://commons.wikimedia.org/wiki/Category:" + name;
 const mapsSearch = (q) => "https://www.google.com/maps/search/" + q;
 const mapsPin = (lat, lng) => `https://www.google.com/maps?q=${lat},${lng}`;
 
@@ -81,10 +79,7 @@ window.TRIP = {
       train: 0,
       night: T("On the train", "ટ્રેનમાં"),
       places: [
-        {
-          file: "WAP-7_with_19107_Janmabhoomi_Express.jpg",
-          name: T("Janmabhoomi Express", "જન્મભૂમિ એક્સપ્રેસ"),
-        },
+        { file: "Palanpur_Junction_Railway_Station.jpg", taken: "2023-12", name: T("On the way: Palanpur Junction", "રસ્તામાં: પાલનપુર જંક્શન") },
       ],
     },
     {
@@ -139,14 +134,9 @@ window.TRIP = {
       },
       night: T("Amritsar", "અમૃતસર"),
       places: [
-        {
-          file: "Golden_Temple_-_Amritsar_India.jpg",
-          name: T("Sri Harmandir Sahib / Golden Temple", "શ્રી હરિમંદિર સાહિબ / ગોલ્ડન ટેમ્પલ"),
-        },
-        {
-          file: "International_border_at_Wagah_-_evening_flag_lowering_ceremony.jpg",
-          name: T("Attari-Wagah Beating Retreat Ceremony", "અટારી-વાઘા બોર્ડર સમારોહ"),
-        },
+        { file: "Golden_Temple_Night_view.jpg", taken: "2018-12", name: T("Golden Temple at night", "રાત્રે ગોલ્ડન ટેમ્પલ") },
+        { file: "The_famous_'langar'-_free_meals_for_one_and_all_(38938496121).jpg", taken: "2017-11", name: T("Langar Hall, Golden Temple", "લંગર હોલ, ગોલ્ડન ટેમ્પલ") },
+        { file: "India_Pakistan_Border_Wagha_(15027737723).jpg", taken: "2010-12", name: T("Attari-Wagah Beating Retreat ceremony", "અટારી-વાઘા બોર્ડર સમારોહ") },
       ],
     },
     {
@@ -199,11 +189,8 @@ window.TRIP = {
       },
       night: T("Dalhousie", "ડેલહાઉસી"),
       places: [
-        { file: "Dainkund_Peak.jpg", name: T("Dainkund Peak & Dalhousie snow peaks", "દૈનકુંડ પીક અને ડેલહાઉસી બરફીલા શિખરો") },
-        {
-          link: commonsCat("Mountains_of_Dalhousie,_India"),
-          name: T("Dalhousie Town Center & Mall Road", "ડેલહાઉસી ટાઉન સેન્ટર અને મોલ રોડ"),
-        },
+        { file: "Dalhousie_Dainkund_01.jpg", name: T("Dainkund Peak", "દૈનકુંડ પીક") },
+        { file: "St_John's_Church,_Dalhousie.jpg", taken: "2014-11", name: T("St John's Church, Gandhi Chowk, Dalhousie", "સેન્ટ જોન ચર્ચ, ગાંધી ચોક, ડેલહાઉસી") },
       ],
     },
     {
@@ -232,8 +219,8 @@ window.TRIP = {
       },
       night: T("Dharamshala / McLeod Ganj", "ધર્મશાળા / મેકલિયોડ ગંજ"),
       places: [
-        { file: "Pir_Panjal_&_Chamera_Lake.jpg", name: T("Chamera Lake & Dam on the Ravi", "ચમેરા લેક અને રાવી નદી ડેમ") },
-        { file: "McLeod_Ganj_from_the_Dalai_Lama_Temple_(6466149411).jpg", name: T("McLeod Ganj Town & Mall Road", "મેકલિયોડ ગંજ ટાઉન અને મોલ રોડ") },
+        { file: "Chamera_Lake.jpg", taken: "2005-04", name: T("Chamera Lake & Dam on the Ravi", "ચમેરા લેક અને રાવી નદી ડેમ") },
+        { file: "Panoramic_view_of_McLeod_Ganj_during_winters,_2005.jpg", taken: "2005-02", name: T("McLeod Ganj in winter, Dhauladhar behind", "શિયાળામાં મેકલિયોડ ગંજ (પાછળ ધૌલાધાર)") },
       ],
     },
     {
@@ -265,10 +252,11 @@ window.TRIP = {
       },
       night: T("Dharamshala / McLeod Ganj", "ધર્મશાળા / મેકલિયોડ ગંજ"),
       places: [
-        { file: "Inside_Dalai_lama_temple_Dharamsala.jpg", name: T("Dalai Lama Temple / Tsuglagkhang", "દલાઈ લામા મંદિર / ત્સુગલાગખાંગ") },
-        { file: "Bhagsu_Waterfall_Dharamshala.jpg", name: T("Bhagsunag Temple & Bhagsu Waterfall", "ભાગસુનાગ મંદિર અને ભાગસુ ધોધ") },
-        { file: "St._John_in_the_Wilderness_Church,_Dharamshala.jpg", name: T("St. John in the Wilderness Church", "સેન્ટ જોન ઇન ધ વાઇલ્ડરનેસ ચર્ચ") },
-        { file: "Naddi_View_Point_Dhauladhar.jpg", name: T("Naddi sunset point, Dhauladhar range", "નડ્ડી સનસેટ વ્યૂ પોઇન્ટ (ધૌલાધાર)") },
+        { file: "McLeod_Ganj_from_the_Dalai_Lama_Temple_(6466149411).jpg", taken: "2011-12", name: T("View from the Dalai Lama Temple", "દલાઈ લામા મંદિર પરથી દ્રશ્ય") },
+        { file: "Bhagsu_nag_temple.jpg", taken: "2019-12", name: T("Bhagsunag Temple", "ભાગસુનાગ મંદિર") },
+        { file: "Bhagsu_waterfall.jpg", taken: "2017-03", name: T("Bhagsu Waterfall", "ભાગસુ ધોધ") },
+        { file: "Dharamsala-St_John_in_the_Wilderness-11-mit_Glockenhaus-2016-gje.jpg", name: T("St. John in the Wilderness Church", "સેન્ટ જોન ઇન ધ વાઇલ્ડરનેસ ચર્ચ") },
+        { file: "Village_of_Naddi_04.jpg", taken: "2018-05", name: T("Naddi village & the Dhauladhar range", "નડ્ડી ગામ અને ધૌલાધાર પર્વતમાળા") },
       ],
     },
     {
@@ -309,10 +297,11 @@ window.TRIP = {
       },
       night: T("Kangra", "કાંગડા"),
       places: [
-        { file: "HPCA_Stadium.jpg", name: T("HPCA Stadium with the Dhauladhar", "HPCA સ્ટેડિયમ (ધૌલાધાર સાથે)") },
-        { file: "Norbulingka_Institute,_Dharamsala.jpg", name: T("Norbulingka Institute", "નોરબુલિંગકા ઇન્સ્ટિટ્યૂટ") },
-        { file: "00512_Gates_and_Walls_of_Kangra_Fort,_Himachal_Pradesh_006.jpg", name: T("Kangra Fort ramparts", "ઐતિહાસિક કાંગડા ફોર્ટ") },
-        { link: commonsCat("Temples_in_Kangra_district"), name: T("Mata Baglamukhi Temple", "માતા બગલામુખી મંદિર") },
+        { file: "Dharamshala_Cricket_Stadium_Landscape.jpg", taken: "2017-03", name: T("HPCA Stadium, Dharamshala", "HPCA સ્ટેડિયમ, ધર્મશાળા") },
+        { file: "Mann_Tea_Estate_1.jpg", taken: "2016-06", name: T("Dharamshala tea gardens (Kunal Pathri area)", "ધર્મશાળાના ચાના બગીચા (કુનાલ પથરી વિસ્તાર)") },
+        { file: "Norbulinka.JPG", taken: "2010-08", name: T("Norbulingka Institute", "નોરબુલિંગકા ઇન્સ્ટિટ્યૂટ") },
+        { file: "Kangra_Fort_,Himachal_Pradesh_26_(cropped).jpg", taken: "2018-10", name: T("Kangra Fort", "કાંગડા ફોર્ટ") },
+        { file: "Maa_Baglamukhi_Temple_Bankhandi_(Kangra).jpg", name: T("Mata Baglamukhi Temple, Bankhandi", "માતા બગલામુખી મંદિર, બનખંડી") },
       ],
     },
     {
@@ -337,9 +326,9 @@ window.TRIP = {
       },
       night: T("Kullu", "કુલ્લુ"),
       places: [
-        { file: "Baijnath_Mahakal_Mandir.jpg", name: T("Shree Shiv Baijnath Temple", "શ્રી શિવ વૈજનાથ મંદિર") },
-        { link: commonsCat("Monasteries_in_Himachal_Pradesh"), name: T("Tashi Jong Khampagar Monastery", "તાશી જોંગ ખામ્પાગર મઠ") },
-        { file: "Bir-Billing_Paragliding.jpg", name: T("Bir Billing paragliding site", "બીર બિલિંગ પેરાગ્લાઇડિંગ સાઇટ") },
+        { file: "Baijnath_Temple.jpg", taken: "2017-04", name: T("Shree Shiv Baijnath Temple", "શ્રી શિવ વૈજનાથ મંદિર") },
+        { file: "Sherabling_Monastery_-_Inner_Sanctum.jpg", name: T("Sherabling Monastery", "શેરાબલિંગ મઠ") },
+        { file: "BIR_BILLING_PARAGLIDING.jpg", taken: "2017-12", name: T("Paragliding at Bir Billing", "બીર બિલિંગ પેરાગ્લાઇડિંગ") },
       ],
     },
     {
@@ -366,9 +355,9 @@ window.TRIP = {
       },
       night: T("Keylong / Lahaul", "કેલોંગ / લાહૌલ"),
       places: [
-        { file: "PM_Modi_in_Atal_Tunnel_2020.jpg", name: T("Atal Tunnel (Rohtang)", "અટલ ટનલ (રોહતાંગ)") },
-        { file: "Sissu_Water_Fall.jpg", name: T("Sissu Waterfall & Chandra River", "સિસ્સુ વોટરફોલ અને ચંદ્રા નદી") },
-        { file: "Keylong_Lahaul_Valley.jpg", name: T("Keylong & the Kardang peaks", "કેલોંગ અને કરડાંગ શિખરો") },
+        { file: "Atal_Tunnel_01.jpg", name: T("Atal Tunnel (Rohtang)", "અટલ ટનલ (રોહતાંગ)") },
+        { file: "Sissu_Water_Fall.jpg", taken: "2016-06", name: T("Sissu Waterfall", "સિસ્સુ વોટરફોલ") },
+        { file: "Keylong_West_Lahaul_Himachal_Oct22_A7C_03375_panorama.jpg", taken: "2022-10", name: T("Keylong & the Kardang peaks", "કેલોંગ અને કરડાંગ શિખરો") },
       ],
     },
     {
@@ -399,8 +388,8 @@ window.TRIP = {
       },
       night: T("Mandi", "મંડી"),
       places: [
-        { file: "Lahaul_Valley_Snow.jpg", name: T("A snowy morning in Lahaul", "લાહૌલની બરફીલી સવાર") },
-        { file: "Panchvaktra_Temple_Mandi_Beas_River.jpg", name: T("Beas River & riverfront, Mandi", "બિયાસ નદી અને મંડી ઘાટ") },
+        { file: "Aerail_view_of_Lahaul_valley_in_winter.JPG", name: T("Lahaul valley in winter", "શિયાળામાં લાહૌલ ખીણ") },
+        { file: "Victoria_Bridge_Mandi.JPG", taken: "2011-12", name: T("Victoria Bridge over the Beas, Mandi", "બિયાસ પર વિક્ટોરિયા બ્રિજ, મંડી") },
       ],
     },
     {
@@ -423,7 +412,7 @@ window.TRIP = {
       train: 1,
       night: T("On the train (arrive GNC Wed 18 Nov, 03:05 PM)", "ટ્રેનમાં (18 નવે બપોરે 03:05 GNC પહોંચશે)"),
       places: [
-        { file: "Sukhna_lake,_chandhigarh_city.jpg", name: T("Sukhna Lake, Chandigarh", "સુખના લેક, ચંડીગઢ") },
+        { file: "Sunset_view_at_Sukhna_Lake_,Chandigarh_,_India.JPG", taken: "2014-11", name: T("Sunset at Sukhna Lake, Chandigarh", "સુખના લેક પર સૂર્યાસ્ત, ચંડીગઢ") },
       ],
     },
   ],
