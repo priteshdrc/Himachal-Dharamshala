@@ -37,6 +37,7 @@
     order: { en: "Try", gu: "શું મંગાવવું" },
     backup: { en: "Backup", gu: "બીજો વિકલ્પ" },
     onMaps: { en: "Open in Maps", gu: "નકશામાં ખોલો" },
+    places: { en: (n) => `${n} picks`, gu: (n) => `${n} વિકલ્પ` },
     meal: {
       en: { breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", train: "On the train" },
       gu: { breakfast: "નાસ્તો", lunch: "બપોરનું ભોજન", dinner: "રાત્રિ ભોજન", snack: "નાસ્તો / મીઠાઈ", train: "ટ્રેનમાં ભોજન" },
@@ -61,6 +62,9 @@
   };
 
   let lang = "gu";
+  // Food sections start collapsed; remember which ones were opened so a
+  // language switch (which re-renders the page) keeps them open.
+  const openFood = new Set();
   try {
     const saved = localStorage.getItem("lang");
     if (saved === "en" || saved === "gu") lang = saved;
@@ -262,7 +266,10 @@
           ${d.train != null ? trainCard(trip.trains[d.train]) : ""}
           ${
             d.food && d.food.length
-              ? `<h3 class="places-h">${esc(ui("food"))}</h3><ul class="foods">${d.food.map(foodCard).join("")}</ul>`
+              ? `<details class="food-box" data-day="${d.n}"${openFood.has(d.n) ? " open" : ""}>
+                  <summary><span>${esc(ui("food"))}</span><small>${esc(ui("places", d.food.length))}</small></summary>
+                  <ul class="foods">${d.food.map(foodCard).join("")}</ul>
+                </details>`
               : ""
           }
 
@@ -328,6 +335,17 @@
     );
     document.querySelectorAll(".day").forEach((s) => observer.observe(s));
   }
+
+  document.addEventListener(
+    "toggle",
+    (e) => {
+      const box = e.target;
+      if (!box.classList || !box.classList.contains("food-box")) return;
+      const n = Number(box.dataset.day);
+      box.open ? openFood.add(n) : openFood.delete(n);
+    },
+    true
+  );
 
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-lang]");
