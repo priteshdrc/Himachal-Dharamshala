@@ -37,6 +37,19 @@
     order: { en: "Try", gu: "શું મંગાવવું" },
     backup: { en: "Backup", gu: "બીજો વિકલ્પ" },
     onMaps: { en: "Open in Maps", gu: "નકશામાં ખોલો" },
+    wxNow: { en: "Now", gu: "અત્યારે" },
+    wxForecast: { en: "forecast", gu: "આગાહી" },
+    wxTypical: { en: "usual", gu: "સામાન્ય" },
+    wxTypicalNote: {
+      en: "“Usual” = average for these dates over the last 5 years. The real forecast appears 16 days before.",
+      gu: "“સામાન્ય” = છેલ્લાં 5 વર્ષમાં આ તારીખોનું સરેરાશ તાપમાન. સાચી આગાહી 16 દિવસ પહેલાં દેખાશે.",
+    },
+    wxLoading: { en: "Loading weather…", gu: "હવામાન લોડ થાય છે…" },
+    wxError: { en: "Weather not available right now", gu: "હવામાન હાલ ઉપલબ્ધ નથી" },
+    wxCodes: {
+      en: { clear: "Clear", partly: "Partly cloudy", cloudy: "Cloudy", fog: "Fog", drizzle: "Drizzle", rain: "Rain", snow: "Snow", storm: "Thunderstorm" },
+      gu: { clear: "સ્વચ્છ", partly: "આંશિક વાદળ", cloudy: "વાદળછાયું", fog: "ધુમ્મસ", drizzle: "ઝરમર", rain: "વરસાદ", snow: "બરફવર્ષા", storm: "વાવાઝોડું" },
+    },
     places: { en: (n) => `${n} picks`, gu: (n) => `${n} વિકલ્પ` },
     meal: {
       en: { breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", train: "On the train" },
@@ -46,8 +59,8 @@
     today: { en: (n) => `Today is Day ${n} · see plan`, gu: (n) => `આજે દિવસ ${n} · કાર્યક્રમ જુઓ` },
     done: { en: "Trip completed · Happy Diwali!", gu: "યાત્રા પૂર્ણ · શુભ દિવાળી!" },
     footer: {
-      en: "Made from our family trip plan. Photos from Wikimedia Commons. Booking numbers are partly hidden; check your email or SMS for the full numbers.",
-      gu: "અમારા પારિવારિક પ્રવાસ આયોજન પરથી બનાવેલ. ફોટો: Wikimedia Commons. બુકિંગ નંબર આંશિક રીતે છુપાવેલ છે; સંપૂર્ણ નંબર માટે ઇમેઇલ અથવા SMS જુઓ.",
+      en: "Made from our family trip plan. Photos from Wikimedia Commons. Weather data by Open-Meteo.com. Booking numbers are partly hidden; check your email or SMS for the full numbers.",
+      gu: "અમારા પારિવારિક પ્રવાસ આયોજન પરથી બનાવેલ. ફોટો: Wikimedia Commons. હવામાન: Open-Meteo.com. બુકિંગ નંબર આંશિક રીતે છુપાવેલ છે; સંપૂર્ણ નંબર માટે ઇમેઇલ અથવા SMS જુઓ.",
     },
   };
 
@@ -231,6 +244,63 @@
       </a>`;
   }
 
+  // ---------- Weather widget ----------
+  let wxStatus = "loading";
+  const WX_ICON = { clear: "☀️", partly: "🌤️", cloudy: "☁️", fog: "🌫️", drizzle: "🌦️", rain: "🌧️", snow: "❄️", storm: "⛈️" };
+  function wxKind(code) {
+    if (code == null) return null;
+    if (code === 0) return "clear";
+    if (code <= 2) return "partly";
+    if (code === 3) return "cloudy";
+    if (code === 45 || code === 48) return "fog";
+    if (code >= 51 && code <= 57) return "drizzle";
+    if ((code >= 61 && code <= 67) || (code >= 80 && code <= 82)) return "rain";
+    if ((code >= 71 && code <= 77) || code === 85 || code === 86) return "snow";
+    if (code >= 95) return "storm";
+    return "cloudy";
+  }
+  const deg = (v) => Math.round(v) + "°";
+  const wxIcon = (code) => {
+    const k = wxKind(code);
+    return k ? `<span class="wx-ic" role="img" aria-label="${esc(ui("wxCodes")[k])}" title="${esc(ui("wxCodes")[k])}">${WX_ICON[k]}</span>` : "";
+  };
+
+  function wxInner(d) {
+    if (wxStatus === "loading") return `<p class="wx-msg">${esc(ui("wxLoading"))}</p>`;
+    if (wxStatus === "error") return `<p class="wx-msg">${esc(ui("wxError"))}</p>`;
+    const st = window.TripWeather.state;
+    let usedTypical = false;
+    const rows = d.wx.map((p) => {
+      const s = st[p.key] || {};
+      const fc = s.forecast && s.forecast[d.date];
+      const ty = s.typical && s.typical[d.date];
+      const visit = fc || ty;
+      if (!fc && ty) usedTypical = true;
+      return `
+        <div class="wx-row">
+          <span class="wx-place">${esc(t(p.name))}</span>
+          <span class="wx-now"><small>${esc(ui("wxNow"))}</small>${
+            s.now ? `${wxIcon(s.now.code)}<b>${deg(s.now.temp)}</b>` : "<b>–</b>"
+          }</span>
+          <span class="wx-visit"><small>${esc(fmtDate(d.date, { day: "numeric", month: "short" }))} · ${esc(ui(fc ? "wxForecast" : "wxTypical"))}</small>${
+            visit ? `${fc ? wxIcon(fc.code) : ""}<b>${deg(visit.min)} / ${deg(visit.max)}</b>` : "<b>–</b>"
+          }</span>
+        </div>`;
+    });
+    return rows.join("") + (usedTypical ? `<p class="wx-note">${esc(ui("wxTypicalNote"))}</p>` : "");
+  }
+
+  function wxBox(d) {
+    return d.wx && d.wx.length ? `<div class="wx" data-day="${d.n}" aria-live="polite">${wxInner(d)}</div>` : "";
+  }
+
+  function refreshWeather() {
+    document.querySelectorAll(".wx").forEach((el) => {
+      const d = trip.days.find((x) => x.n === Number(el.dataset.day));
+      if (d) el.innerHTML = wxInner(d);
+    });
+  }
+
   function renderDays() {
     $("#days").innerHTML = trip.days
       .map((d) => {
@@ -258,6 +328,8 @@
               <p class="day-where">${ICON.pin}<span>${esc(t(d.where))}</span></p>
             </div>
           </header>
+
+          ${wxBox(d)}
 
           <p class="wake">${ICON.sun}<span><b>${esc(ui("wake"))}:</b> ${esc(t(d.wake))}</span></p>
 
@@ -358,6 +430,16 @@
   });
 
   render();
+
+  if (window.TripWeather) {
+    window.TripWeather.load()
+      .then(() => (wxStatus = "ok"))
+      .catch(() => (wxStatus = "error"))
+      .then(refreshWeather);
+  } else {
+    wxStatus = "error";
+    refreshWeather();
+  }
 
   if (todayDay && !location.hash) {
     requestAnimationFrame(() => {

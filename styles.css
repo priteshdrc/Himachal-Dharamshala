@@ -261,6 +261,23 @@ body.gu .panel h3 { text-transform: none; letter-spacing: 0; font-size: 14px; }
 .what .tag { position: absolute; right: 0; top: -20px; color: var(--sky); }
 .tip { font-size: 13.5px; color: var(--amber); background: var(--amber-soft); padding: 6px 10px; border-radius: 10px; margin-top: 6px !important; }
 
+/* ---------- Weather ---------- */
+.wx {
+  margin: 14px 0 0; padding: 10px 12px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--sky-soft), var(--surface-2));
+  border: 1px solid var(--line);
+}
+.wx-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; }
+.wx-row + .wx-row { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); }
+.wx-place { font-weight: 700; font-size: 14px; min-width: 0; overflow-wrap: anywhere; }
+.wx-now, .wx-visit { display: grid; grid-template-columns: auto auto; column-gap: 4px; align-items: center; justify-items: end; text-align: right; }
+.wx-now small, .wx-visit small { grid-column: 1 / -1; font-size: 11px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.wx-now b, .wx-visit b { font-size: 16px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wx-visit { padding-left: 12px; border-left: 1px solid var(--line); }
+.wx-ic { font-size: 16px; line-height: 1; }
+.wx-msg { margin: 0; font-size: 13px; color: var(--muted); }
+.wx-note { margin: 8px 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+
 /* ---------- Food ---------- */
 .food-box { margin-top: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
 .food-box > summary {

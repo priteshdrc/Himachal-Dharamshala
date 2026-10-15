@@ -7,6 +7,7 @@ Amritsar → Dalhousie → Dharamshala / McLeod Ganj → Kangra → Bir → Kull
 - Day 1–10 timeline with wake-up times, drives, tips, hotel and train details, and map links
 - "At a glance" list of every night's stay, showing which hotels are confirmed and which are still to book
 - Shows the countdown before the trip and jumps to today's plan during it
+- Weather on each day: current temperature at the place, plus the forecast for the visit date (or the usual temperature for that date until the forecast is available), from [Open-Meteo](https://open-meteo.com)
 - No caching: every visit loads the latest version, so pushed changes show up on the next refresh
 
 ## Editing the trip
