@@ -28,6 +28,8 @@
     7: [
       "https://www.youtube.com/shorts/ybH2lwrmusA",
       "https://www.youtube.com/shorts/BB__ZseIWdM",
+      "https://www.youtube.com/shorts/eIY98sf-S04",
+      "https://www.youtube.com/shorts/0SlPYqga1Go",
     ],
     8: [
       "https://www.youtube.com/shorts/FoRSKlsUSBw",
