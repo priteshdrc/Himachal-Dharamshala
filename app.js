@@ -51,6 +51,15 @@
       gu: { clear: "સ્વચ્છ", partly: "આંશિક વાદળ", cloudy: "વાદળછાયું", fog: "ધુમ્મસ", drizzle: "ઝરમર", rain: "વરસાદ", snow: "બરફવર્ષા", storm: "વાવાઝોડું" },
     },
     places: { en: (n) => `${n} picks`, gu: (n) => `${n} વિકલ્પ` },
+    videos: { en: "Videos", gu: "વીડિયો" },
+    videoCount: { en: (n) => (n === 1 ? "1 video" : `${n} videos`), gu: (n) => `${n} વીડિયો` },
+    video: { en: (n) => `Video ${n}`, gu: (n) => `વીડિયો ${n}` },
+    short: { en: "Short", gu: "શોર્ટ" },
+    playVideo: { en: "Play", gu: "ચલાવો" },
+    close: { en: "Close", gu: "બંધ કરો" },
+    prev: { en: "Previous video", gu: "પાછલો વીડિયો" },
+    next: { en: "Next video", gu: "આગળનો વીડિયો" },
+    openYouTube: { en: "Open on YouTube", gu: "YouTube પર ખોલો" },
     meal: {
       en: { breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", train: "On the train" },
       gu: { breakfast: "નાસ્તો", lunch: "બપોરનું ભોજન", dinner: "રાત્રિ ભોજન", snack: "નાસ્તો / મીઠાઈ", train: "ટ્રેનમાં ભોજન" },
@@ -78,6 +87,7 @@
   // Food sections start collapsed; remember which ones were opened so a
   // language switch (which re-renders the page) keeps them open.
   const openFood = new Set();
+  const openVideos = new Set();
   try {
     const saved = localStorage.getItem("lang");
     if (saved === "en" || saved === "gu") lang = saved;
@@ -345,6 +355,25 @@
               : ""
           }
 
+          ${
+            d.videos && d.videos.length
+              ? `<details class="vid-box" data-day="${d.n}"${openVideos.has(d.n) ? " open" : ""}>
+                  <summary><svg class="yt" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="4" fill="#e62117" stroke="none"/><path d="M8 4l5 3-5 3z" fill="#fff" stroke="none"/></svg><span>${esc(ui("videos"))}</span><small>${esc(ui("videoCount", d.videos.length))}</small></summary>
+                  <div class="vids">${d.videos
+                    .map(
+                      (v, i) => `
+                    <button type="button" class="vid${v.short ? " is-short" : ""}" data-day="${d.n}" data-i="${i}" aria-label="${esc(ui("playVideo") + ": " + ui("video", i + 1))}">
+                      <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+                      <span class="vid-play" aria-hidden="true"></span>
+                      ${v.short ? `<span class="vid-tag">${esc(ui("short"))}</span>` : ""}
+                      <span class="vid-cap">${esc(ui("video", i + 1))}</span>
+                    </button>`
+                    )
+                    .join("")}</div>
+                </details>`
+              : ""
+          }
+
           ${stayCard(d)}
 
           <p class="night">${ICON.moon}<span><b>${esc(ui("night"))}:</b> ${esc(t(d.night))}</span></p>
@@ -412,12 +441,74 @@
     "toggle",
     (e) => {
       const box = e.target;
-      if (!box.classList || !box.classList.contains("food-box")) return;
+      if (!box.classList) return;
+      const set = box.classList.contains("food-box") ? openFood : box.classList.contains("vid-box") ? openVideos : null;
+      if (!set) return;
       const n = Number(box.dataset.day);
-      box.open ? openFood.add(n) : openFood.delete(n);
+      box.open ? set.add(n) : set.delete(n);
     },
     true
   );
+
+  // ---------- Video popup ----------
+  let player, playing; // playing = { day, i }
+  function ensurePlayer() {
+    if (player) return player;
+    player = document.createElement("dialog");
+    player.className = "player";
+    player.innerHTML = `
+      <div class="player-bar">
+        <b class="player-title"></b>
+        <button type="button" class="player-x" data-act="close">✕</button>
+      </div>
+      <div class="player-frame"></div>
+      <div class="player-nav">
+        <button type="button" data-act="prev">‹</button>
+        <a class="player-yt" target="_blank" rel="noopener"></a>
+        <button type="button" data-act="next">›</button>
+      </div>`;
+    document.body.appendChild(player);
+    player.addEventListener("click", (e) => {
+      if (e.target === player) return player.close(); // tap on the dark backdrop
+      const act = e.target.closest("[data-act]");
+      if (!act) return;
+      if (act.dataset.act === "close") player.close();
+      else showVideo(playing.day, playing.i + (act.dataset.act === "next" ? 1 : -1));
+    });
+    // Stop playback when the popup closes (✕, backdrop, Esc or back gesture).
+    player.addEventListener("close", () => {
+      player.querySelector(".player-frame").innerHTML = "";
+      playing = null;
+    });
+    return player;
+  }
+
+  function showVideo(dayN, i) {
+    const d = trip.days.find((x) => x.n === dayN);
+    const list = d.videos;
+    i = (i + list.length) % list.length;
+    const v = list[i];
+    playing = { day: dayN, i };
+    const p = ensurePlayer();
+    p.classList.toggle("is-short", v.short);
+    p.querySelector(".player-title").textContent = `${ui("day")} ${d.n} · ${ui("video", i + 1)} / ${list.length}`;
+    p.querySelector(".player-x").setAttribute("aria-label", ui("close"));
+    p.querySelector('[data-act="prev"]').setAttribute("aria-label", ui("prev"));
+    p.querySelector('[data-act="next"]').setAttribute("aria-label", ui("next"));
+    p.querySelectorAll('[data-act="prev"],[data-act="next"]').forEach((b) => (b.hidden = list.length < 2));
+    const yt = p.querySelector(".player-yt");
+    yt.href = v.url;
+    yt.textContent = ui("openYouTube");
+    p.querySelector(".player-frame").innerHTML =
+      `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1&playsinline=1&rel=0" ` +
+      `title="${esc(ui("video", i + 1))}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    if (!p.open) p.showModal();
+  }
+
+  document.addEventListener("click", (e) => {
+    const card = e.target.closest(".vid[data-day]");
+    if (card) showVideo(Number(card.dataset.day), Number(card.dataset.i));
+  });
 
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-lang]");

@@ -84,10 +84,10 @@
   <a class="totop" href="#" aria-label="Back to top">↑</a>
 
   <script>
-    ["data.js", "food.js", "weather.js", "app.js"].forEach(function (src) {
+    ["data.js", "food.js", "weather.js", "videos.js", "app.js"].forEach(function (src) {
       var s = document.createElement("script");
       s.src = src + "?v=" + window.__assetVersion;
-      s.async = false; // keep order: data, food, weather, then app
+      s.async = false; // keep order: data files first, then app
       document.body.appendChild(s);
     });
   </script>
