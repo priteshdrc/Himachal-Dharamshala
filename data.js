@@ -120,7 +120,10 @@ window.TRIP = {
         },
         {
           time: T("07:30 PM", "સાંજે 07:30"),
-          text: T("Sri Harmandir Sahib (Golden Temple) & Langar Hall.", "શ્રી હરિમંદિર સાહિબ (ગોલ્ડન ટેમ્પલ) અને લંગર હોલ."),
+          text: T(
+            "Sri Harmandir Sahib (Golden Temple) at night, then dinner outside (see “Where to eat”).",
+            "રાત્રે શ્રી હરિમંદિર સાહિબ (ગોલ્ડન ટેમ્પલ) દર્શન, પછી બહાર રાત્રિ ભોજન (“ક્યાં જમવું” જુઓ)."
+          ),
         },
       ],
       stay: {
