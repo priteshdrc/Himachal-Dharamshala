@@ -4,7 +4,7 @@
 
 (function () {
   const T = (en, gu) => ({ en, gu });
-  window.TRIP.route = [
+  window.TRIP.stops = [
     { day: 2, date: "2026-11-09", name: T("Jalandhar City", "જલંધર સિટી"), lat: 31.326, lon: 75.5762,
       what: T("Arrive by train 10 AM, pick up the Tempo Traveller", "સવારે 10 ટ્રેનથી આગમન, ટેમ્પો ટ્રાવેલર લો") },
     { day: 2, date: "2026-11-09", name: T("Amritsar", "અમૃતસર"), lat: 31.62, lon: 74.8765, night: true,

@@ -429,7 +429,7 @@
   }
 
   function renderJourney() {
-    const r = trip.route || [];
+    const r = trip.stops || [];
     const last = r.length - 1;
     $("#stops").innerHTML = r
       .map(
@@ -448,7 +448,7 @@
 
   function initMap() {
     const el = $("#map");
-    const r = trip.route || [];
+    const r = trip.stops || [];
     if (!window.L || !el || !r.length) return;
     el.innerHTML = "";
     map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25 });
@@ -471,7 +471,7 @@
     const b = e.target.closest(".stop[data-stop]");
     if (!b || !map) return;
     const i = Number(b.dataset.stop);
-    const s = trip.route[i];
+    const s = trip.stops[i];
     $("#map").scrollIntoView({ behavior: "smooth", block: "center" });
     map.flyTo([s.lat, s.lon], 11, { duration: 0.8 });
     map.once("moveend", () => mapMarkers[i].openPopup());
