@@ -268,6 +268,7 @@ body.gu .journey h2 { font-family: var(--font-gu); font-weight: 700; }
   height: min(62vh, 440px); border-radius: var(--radius); overflow: hidden;
   box-shadow: var(--shadow); background: var(--surface-2); z-index: 0;
 }
+.map-note { margin: 8px 2px 0; font-size: 13px; color: var(--muted); }
 .map-msg { margin: 0; padding: 20px; color: var(--muted); font-size: 14px; }
 .pin {
   display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;

@@ -56,6 +56,9 @@
     nightHere: { en: "Night stay", gu: "રાત્રિ રોકાણ" },
     mapStart: { en: "Start", gu: "શરૂઆત" },
     mapEnd: { en: "End", gu: "અંત" },
+    mapRoad: { en: (km) => `Road route · about ${km} km from Jalandhar to Chandigarh`, gu: (km) => `રોડ રૂટ · જલંધરથી ચંડીગઢ લગભગ ${km} કિમી` },
+    mapRoadLoading: { en: "Loading road route…", gu: "રોડ રૂટ લોડ થાય છે…" },
+    mapRoadFail: { en: "Road route not available right now — dashed line joins the stops in order.", gu: "રોડ રૂટ હાલ ઉપલબ્ધ નથી — તૂટક લાઇન સ્થળોને ક્રમમાં જોડે છે." },
     mapError: { en: "The map could not load. The stops are listed below.", gu: "નકશો લોડ થઈ શક્યો નહીં. સ્થળોની યાદી નીચે છે." },
     videos: { en: "Videos", gu: "વીડિયો" },
     videoCount: { en: (n) => (n === 1 ? "1 video" : `${n} videos`), gu: (n) => `${n} વીડિયો` },
@@ -443,7 +446,41 @@
       )
       .join("");
     mapMarkers.forEach((m, i) => m.setPopupContent(stopPopup(r[i], i, last)));
+    updateMapNote();
     if (!map && !window.L) $("#map").innerHTML = `<p class="map-msg">${esc(ui("mapError"))}</p>`;
+  }
+
+  // Road geometry from the public OSRM router (no key needed), with a second
+  // OSRM server as backup. Coordinates go in as lon,lat.
+  let mapRoad = null; // null = loading, { km } = ok, { failed: true }
+  function loadRoadRoute(stops) {
+    const coords = stops.filter((s) => s.via !== false).map((s) => `${s.lon},${s.lat}`).join(";");
+    const servers = [
+      "https://router.project-osrm.org/route/v1/driving/",
+      "https://routing.openstreetmap.de/routed-car/route/v1/driving/",
+    ];
+    const tryServer = (i) => {
+      if (i >= servers.length) return Promise.reject(new Error("no route"));
+      const ctrl = "AbortController" in window ? new AbortController() : null;
+      const timer = setTimeout(() => ctrl && ctrl.abort(), 10000);
+      return fetch(servers[i] + coords + "?overview=full&geometries=geojson", ctrl ? { signal: ctrl.signal } : {})
+        .then((res) => (res.ok ? res.json() : Promise.reject(new Error("HTTP " + res.status))))
+        .then((j) => {
+          const route = j && j.code === "Ok" && j.routes && j.routes[0];
+          if (!route) throw new Error("bad route");
+          return { coords: route.geometry.coordinates.map(([lon, lat]) => [lat, lon]), meters: route.distance };
+        })
+        .catch(() => tryServer(i + 1))
+        .finally(() => clearTimeout(timer));
+    };
+    return tryServer(0);
+  }
+
+  function updateMapNote() {
+    const el = $("#map-note");
+    if (!el) return;
+    if (!map) return (el.textContent = "");
+    el.textContent = !mapRoad ? ui("mapRoadLoading") : mapRoad.failed ? ui("mapRoadFail") : ui("mapRoad", mapRoad.km.toLocaleString(locale()));
   }
 
   function initMap() {
@@ -457,7 +494,17 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
     const pts = r.map((s) => [s.lat, s.lon]);
-    L.polyline(pts, { color: "#e0702b", weight: 4, opacity: 0.85, lineJoin: "round" }).addTo(map);
+    // Straight dashed line first; replaced by the real road route once it loads.
+    const straight = L.polyline(pts, { color: "#e0702b", weight: 3, opacity: 0.6, dashArray: "6 8" }).addTo(map);
+    loadRoadRoute(r)
+      .then((road) => {
+        straight.remove();
+        L.polyline(road.coords, { color: "#ffffff", weight: 7, opacity: 0.9, lineJoin: "round" }).addTo(map);
+        L.polyline(road.coords, { color: "#e0702b", weight: 4, opacity: 0.95, lineJoin: "round" }).addTo(map);
+        mapRoad = { km: Math.round(road.meters / 1000) };
+      })
+      .catch(() => (mapRoad = { failed: true }))
+      .then(updateMapNote);
     const last = r.length - 1;
     r.forEach((s, i) => {
       const cls = ["pin", s.night ? "is-night" : "", i === 0 ? "is-start" : "", i === last ? "is-end" : ""].join(" ");
@@ -465,6 +512,7 @@
       mapMarkers.push(L.marker([s.lat, s.lon], { icon, title: t(s.name), zIndexOffset: i === 0 || i === last ? 1000 : 0 }).bindPopup(stopPopup(s, i, last)).addTo(map));
     });
     map.fitBounds(L.latLngBounds(pts), { padding: [24, 24] });
+    updateMapNote();
   }
 
   document.addEventListener("click", (e) => {

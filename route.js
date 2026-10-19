@@ -1,6 +1,7 @@
 /* Stops for the journey map, in travel order (by road, Jalandhar to Chandigarh).
    day: which day card the stop links to. night: true if you sleep here.
-   end: last date, for a stop covering more than one day. */
+   end: last date, for a stop covering more than one day.
+   via: false = show the pin but don't force the road route through this point. */
 
 (function () {
   const T = (en, gu) => ({ en, gu });
@@ -23,7 +24,7 @@
       what: T("Monasteries, paragliding landing site", "મઠ, પેરાગ્લાઇડિંગ લેન્ડિંગ સાઇટ") },
     { day: 7, date: "2026-11-14", name: T("Kullu", "કુલ્લુ"), lat: 31.9578, lon: 77.1095, night: true,
       what: T("Night stay", "રાત્રિ રોકાણ") },
-    { day: 8, date: "2026-11-15", name: T("Atal Tunnel", "અટલ ટનલ"), lat: 32.385, lon: 77.15,
+    { day: 8, date: "2026-11-15", name: T("Atal Tunnel", "અટલ ટનલ"), lat: 32.385, lon: 77.15, via: false,
       what: T("Through the tunnel into Lahaul", "ટનલ થઈને લાહૌલમાં") },
     { day: 8, date: "2026-11-15", name: T("Sissu", "સિસ્સુ"), lat: 32.48, lon: 77.125,
       what: T("Sissu waterfall, Chandra river", "સિસ્સુ ધોધ, ચંદ્રા નદી") },
