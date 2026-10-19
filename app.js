@@ -52,6 +52,10 @@
     },
     places: { en: (n) => `${n} picks`, gu: (n) => `${n} વિકલ્પ` },
     journey: { en: "Journey map", gu: "યાત્રાનો નકશો" },
+    planAlt: { en: "See the alternative plan (Jispa) →", gu: "વૈકલ્પિક પ્લાન (જિસ્પા) જુઓ →" },
+    planMain: { en: "← Back to the main plan", gu: "← મુખ્ય પ્લાન પર પાછા" },
+    planBadge: { en: "Alternative plan", gu: "વૈકલ્પિક પ્લાન" },
+    altBookings: { en: "Bookings to change", gu: "બદલવાનાં બુકિંગ" },
     seeDay: { en: (n) => `See Day ${n} →`, gu: (n) => `દિવસ ${n} જુઓ →` },
     nightHere: { en: "Night stay", gu: "રાત્રિ રોકાણ" },
     mapStart: { en: "Start", gu: "શરૂઆત" },
@@ -132,6 +136,25 @@
 
   function renderHero() {
     $("#title").textContent = t(trip.title);
+    const badge = $("#plan-badge");
+    if (badge) {
+      badge.hidden = !trip.alt;
+      badge.textContent = ui("planBadge");
+    }
+    const link = $("#plan-link");
+    if (link) {
+      link.href = trip.alt ? "./" : "alt.html";
+      link.textContent = ui(trip.alt ? "planMain" : "planAlt");
+    }
+    const note = $("#alt-note");
+    if (note && trip.altNote) {
+      const n = trip.altNote;
+      note.innerHTML = `
+        <h2>${esc(t(n.title))}</h2>
+        <ul>${n.changes.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>
+        <h3>${esc(ui("altBookings"))}</h3>
+        <ul>${n.bookings.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>`;
+    }
     $("#dates").textContent = t(trip.dates);
     $("#route").innerHTML = trip.route.map((r) => `<li>${esc(t(r))}</li>`).join("");
 

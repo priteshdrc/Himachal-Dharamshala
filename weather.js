@@ -15,6 +15,7 @@
     kullu: { name: T("Kullu", "કુલ્લુ"), lat: 31.9578, lon: 77.1095 },
     sissu: { name: T("Sissu", "સિસ્સુ"), lat: 32.48, lon: 77.125 },
     keylong: { name: T("Keylong", "કેલોંગ"), lat: 32.5717, lon: 77.0328 },
+    jispa: { name: T("Jispa", "જિસ્પા"), lat: 32.64, lon: 77.185 },
     mandi: { name: T("Mandi", "મંડી"), lat: 31.708, lon: 76.9318 },
     chandigarh: { name: T("Chandigarh", "ચંડીગઢ"), lat: 30.7333, lon: 76.7794 },
   };
@@ -115,6 +116,7 @@
 
   let loading;
   window.TripWeather = {
+    places: P,
     state,
     load() {
       if (!loading) {

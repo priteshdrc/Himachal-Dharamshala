@@ -12,6 +12,10 @@ Amritsar → Dalhousie → Dharamshala / McLeod Ganj → Kangra → Bir → Kull
 - Videos on each day (collapsed by default) that play in a popup on the page; links are in [`videos.js`](videos.js)
 - No caching: every visit loads the latest version, so pushed changes show up on the next refresh
 
+## Alternative plan
+
+[`alt.html`](alt.html) shows an alternative itinerary (skip Chamera Lake and Kangra Fort, Baglamukhi on the way to Dharamshala, Bir and Kullu on Day 6, two nights in Lahaul with a full day at Jispa). It reuses the main plan's data and rewrites Days 4, 6, 7 and 8 in [`alt-plan.js`](alt-plan.js). Each page links to the other from the header.
+
 ## Editing the trip
 
 All content is in [`data.js`](data.js); vegetarian restaurant picks are in [`food.js`](food.js). Change a time, hotel or booking status there and push; the site updates.
