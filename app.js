@@ -51,6 +51,12 @@
       gu: { clear: "સ્વચ્છ", partly: "આંશિક વાદળ", cloudy: "વાદળછાયું", fog: "ધુમ્મસ", drizzle: "ઝરમર", rain: "વરસાદ", snow: "બરફવર્ષા", storm: "વાવાઝોડું" },
     },
     places: { en: (n) => `${n} picks`, gu: (n) => `${n} વિકલ્પ` },
+    journey: { en: "Journey map", gu: "યાત્રાનો નકશો" },
+    seeDay: { en: (n) => `See Day ${n} →`, gu: (n) => `દિવસ ${n} જુઓ →` },
+    nightHere: { en: "Night stay", gu: "રાત્રિ રોકાણ" },
+    mapStart: { en: "Start", gu: "શરૂઆત" },
+    mapEnd: { en: "End", gu: "અંત" },
+    mapError: { en: "The map could not load. The stops are listed below.", gu: "નકશો લોડ થઈ શક્યો નહીં. સ્થળોની યાદી નીચે છે." },
     videos: { en: "Videos", gu: "વીડિયો" },
     videoCount: { en: (n) => (n === 1 ? "1 video" : `${n} videos`), gu: (n) => `${n} વીડિયો` },
     video: { en: (n) => `Video ${n}`, gu: (n) => `વીડિયો ${n}` },
@@ -403,11 +409,80 @@
     document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
   }
 
+  // ---------- Journey map ----------
+  let map;
+  const mapMarkers = [];
+  const stopDate = (s) => {
+    const f = (iso) => fmtDate(iso, { day: "numeric", month: "short" });
+    return s.end ? `${fmtDate(s.date, { day: "numeric" })}–${f(s.end)}` : f(s.date);
+  };
+  function stopPopup(s, i, last) {
+    const tag = i === 0 ? ui("mapStart") : i === last ? ui("mapEnd") : "";
+    return `
+      <div class="pop">
+        <small>${i + 1}${tag ? " · " + esc(tag) : ""} · ${esc(stopDate(s))}</small>
+        <b>${esc(t(s.name))}</b>
+        <span>${esc(t(s.what))}</span>
+        ${s.night ? `<span class="pop-night">🌙 ${esc(ui("nightHere"))}</span>` : ""}
+        <a href="#day-${s.day}">${esc(ui("seeDay", s.day))}</a>
+      </div>`;
+  }
+
+  function renderJourney() {
+    const r = trip.route || [];
+    const last = r.length - 1;
+    $("#stops").innerHTML = r
+      .map(
+        (s, i) => `
+        <li><button type="button" class="stop${s.night ? " is-night" : ""}" data-stop="${i}">
+          <span class="stop-n">${i + 1}</span>
+          <span class="stop-date">${esc(stopDate(s))}</span>
+          <span class="stop-name"><b>${esc(t(s.name))}</b><small>${esc(t(s.what))}</small></span>
+          ${s.night ? '<span class="stop-moon" aria-hidden="true">🌙</span>' : ""}
+        </button></li>`
+      )
+      .join("");
+    mapMarkers.forEach((m, i) => m.setPopupContent(stopPopup(r[i], i, last)));
+    if (!map && !window.L) $("#map").innerHTML = `<p class="map-msg">${esc(ui("mapError"))}</p>`;
+  }
+
+  function initMap() {
+    const el = $("#map");
+    const r = trip.route || [];
+    if (!window.L || !el || !r.length) return;
+    el.innerHTML = "";
+    map = L.map(el, { scrollWheelZoom: false, zoomSnap: 0.25 });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+    const pts = r.map((s) => [s.lat, s.lon]);
+    L.polyline(pts, { color: "#e0702b", weight: 4, opacity: 0.85, lineJoin: "round" }).addTo(map);
+    const last = r.length - 1;
+    r.forEach((s, i) => {
+      const cls = ["pin", s.night ? "is-night" : "", i === 0 ? "is-start" : "", i === last ? "is-end" : ""].join(" ");
+      const icon = L.divIcon({ className: "", html: `<span class="${cls}">${i + 1}</span>`, iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14] });
+      mapMarkers.push(L.marker([s.lat, s.lon], { icon, title: t(s.name), zIndexOffset: i === 0 || i === last ? 1000 : 0 }).bindPopup(stopPopup(s, i, last)).addTo(map));
+    });
+    map.fitBounds(L.latLngBounds(pts), { padding: [24, 24] });
+  }
+
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest(".stop[data-stop]");
+    if (!b || !map) return;
+    const i = Number(b.dataset.stop);
+    const s = trip.route[i];
+    $("#map").scrollIntoView({ behavior: "smooth", block: "center" });
+    map.flyTo([s.lat, s.lon], 11, { duration: 0.8 });
+    map.once("moveend", () => mapMarkers[i].openPopup());
+  });
+
   function render() {
     renderStatic();
     renderHero();
     renderNav();
     renderGlance();
+    renderJourney();
     renderDays();
     watchActiveDay();
   }
@@ -521,6 +596,7 @@
   });
 
   render();
+  initMap();
 
   if (window.TripWeather) {
     window.TripWeather.load()

@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -74,6 +75,12 @@
       </div>
     </section>
 
+    <section class="journey" aria-labelledby="journey-h">
+      <h2 id="journey-h" data-i18n="journey"></h2>
+      <div class="map" id="map"></div>
+      <ol class="stops" id="stops"></ol>
+    </section>
+
     <div id="days"></div>
   </main>
 
@@ -84,9 +91,12 @@
   <a class="totop" href="#" aria-label="Back to top">↑</a>
 
   <script>
-    ["data.js", "food.js", "weather.js", "videos.js", "app.js"].forEach(function (src) {
+    [
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js",
+      "data.js", "route.js", "food.js", "weather.js", "videos.js", "app.js"
+    ].forEach(function (src) {
       var s = document.createElement("script");
-      s.src = src + "?v=" + window.__assetVersion;
+      s.src = /^https:/.test(src) ? src : src + "?v=" + window.__assetVersion;
       s.async = false; // keep order: data files first, then app
       document.body.appendChild(s);
     });
