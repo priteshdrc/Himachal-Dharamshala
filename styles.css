@@ -112,7 +112,7 @@ a { color: inherit; }
 }
 .route li { background: rgba(20, 30, 55, .28); padding: 3px 9px; border-radius: 999px; }
 .status {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px; margin: 10px 8px 0 0;
   background: #fff; color: var(--night);
   padding: 10px 16px; border-radius: 999px;
   font-weight: 700; font-size: 14px; text-decoration: none;
@@ -123,10 +123,16 @@ a { color: inherit; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 7px rgba(47, 191, 113, 0); } }
 
 .plan-link {
-  display: inline-flex; align-items: center; margin: 10px 0 0 6px; min-height: 40px; padding: 8px 14px;
+  display: inline-flex; align-items: center; margin: 10px 8px 0 0; min-height: 40px; padding: 8px 14px;
   border-radius: 999px; background: rgba(20, 30, 55, .35); color: #fff; text-decoration: none;
   font-weight: 600; font-size: 13.5px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
 }
+.pdf-link {
+  display: inline-flex; align-items: center; gap: 6px; margin: 10px 8px 0 0; min-height: 40px; padding: 8px 14px;
+  border-radius: 999px; background: rgba(255, 255, 255, .92); color: var(--night, #1d2b45); text-decoration: none;
+  font-weight: 700; font-size: 13.5px;
+}
+.pdf-link svg { width: 16px; height: 16px; }
 .plan-badge {
   display: inline-block; margin-top: 26px; padding: 4px 12px; border-radius: 999px;
   background: #ffd27a; color: #4a2a05; font-weight: 700; font-size: 13px;

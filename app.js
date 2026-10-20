@@ -54,6 +54,7 @@
     journey: { en: "Journey map", gu: "યાત્રાનો નકશો" },
     planAlt: { en: "See the alternative plan (Jispa) →", gu: "વૈકલ્પિક પ્લાન (જિસ્પા) જુઓ →" },
     planMain: { en: "← Back to the main plan", gu: "← મુખ્ય પ્લાન પર પાછા" },
+    pdf: { en: "Download PDF", gu: "PDF ડાઉનલોડ કરો" },
     planBadge: { en: "Alternative plan", gu: "વૈકલ્પિક પ્લાન" },
     altBookings: { en: "Bookings to change", gu: "બદલવાનાં બુકિંગ" },
     seeDay: { en: (n) => `See Day ${n} →`, gu: (n) => `દિવસ ${n} જુઓ →` },
@@ -145,6 +146,17 @@
     if (link) {
       link.href = trip.alt ? "./" : "alt.html";
       link.textContent = ui(trip.alt ? "planMain" : "planAlt");
+    }
+    const pdf = $("#pdf-link");
+    if (pdf) {
+      // Pre-built PDFs in pdf/: one per plan and language (see tools/make-pdf.js).
+      const plan = trip.alt ? "alt" : "main";
+      pdf.href = `pdf/${plan}-${lang}.pdf?v=${window.__assetVersion || ""}`;
+      pdf.setAttribute(
+        "download",
+        `Diwali-Trip-${trip.alt ? "Alternative-Plan" : "Plan"}-${lang === "gu" ? "Gujarati" : "English"}.pdf`
+      );
+      pdf.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>${esc(ui("pdf"))}</span>`;
     }
     const note = $("#alt-note");
     if (note && trip.altNote) {
