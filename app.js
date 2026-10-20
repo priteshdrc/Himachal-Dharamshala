@@ -55,6 +55,8 @@
     planAlt: { en: "See the alternative plan (Jispa) →", gu: "વૈકલ્પિક પ્લાન (જિસ્પા) જુઓ →" },
     planMain: { en: "← Back to the main plan", gu: "← મુખ્ય પ્લાન પર પાછા" },
     pdf: { en: "Download PDF", gu: "PDF ડાઉનલોડ કરો" },
+    toLight: { en: "Switch to light mode", gu: "લાઇટ મોડ" },
+    toDark: { en: "Switch to dark mode", gu: "ડાર્ક મોડ" },
     planBadge: { en: "Alternative plan", gu: "વૈકલ્પિક પ્લાન" },
     altBookings: { en: "Bookings to change", gu: "બદલવાનાં બુકિંગ" },
     seeDay: { en: (n) => `See Day ${n} →`, gu: (n) => `દિવસ ${n} જુઓ →` },
@@ -440,11 +442,48 @@
     });
   }
 
+  // ---------- Light / dark ----------
+  // The page head already set data-theme; this button flips it and remembers it.
+  const isDark = () => document.documentElement.getAttribute("data-theme") === "dark";
+  function renderThemeButton() {
+    const b = $("#theme-btn");
+    if (!b) return;
+    const label = ui(isDark() ? "toLight" : "toDark");
+    b.innerHTML = isDark() ? ICON.sun : ICON.moon;
+    b.setAttribute("aria-label", label);
+    b.title = label;
+  }
+  function setTheme(theme, save) {
+    document.documentElement.setAttribute("data-theme", theme);
+    if (save) {
+      try {
+        localStorage.setItem("theme", theme);
+      } catch (e) {}
+    }
+    renderThemeButton();
+  }
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("#theme-btn")) setTheme(isDark() ? "light" : "dark", true);
+  });
+  // Until a choice is saved, keep following the phone's setting.
+  if (window.matchMedia) {
+    const mq = matchMedia("(prefers-color-scheme: dark)");
+    const follow = (ev) => {
+      let saved = null;
+      try {
+        saved = localStorage.getItem("theme");
+      } catch (e) {}
+      if (!saved) setTheme(ev.matches ? "dark" : "light", false);
+    };
+    mq.addEventListener ? mq.addEventListener("change", follow) : mq.addListener && mq.addListener(follow);
+  }
+
   function renderStatic() {
     document.documentElement.lang = lang === "gu" ? "gu" : "en";
     document.body.classList.toggle("gu", lang === "gu");
     document.querySelectorAll("[data-i18n]").forEach((el) => (el.textContent = ui(el.dataset.i18n)));
     document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    renderThemeButton();
   }
 
   // ---------- Journey map ----------

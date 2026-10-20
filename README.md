@@ -10,6 +10,7 @@ Amritsar → Dalhousie → Dharamshala / McLeod Ganj → Kangra → Bir → Kull
 - Weather on each day: current temperature at the place, plus the forecast for the visit date (or the usual temperature for that date until the forecast is available), from [Open-Meteo](https://open-meteo.com)
 - Journey map (Jalandhar → Chandigarh) with numbered, dated pins and a stop list; stops are in [`route.js`](route.js)
 - Videos on each day (collapsed by default) that play in a popup on the page; links are in [`videos.js`](videos.js)
+- Light / dark mode button in the header (remembered on the phone; follows the phone setting until tapped)
 - No caching: every visit loads the latest version, so pushed changes show up on the next refresh
 
 ## Alternative plan

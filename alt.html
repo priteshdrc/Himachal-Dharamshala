@@ -23,6 +23,11 @@
     (function () {
       var v = Date.now();
       var root = document.documentElement;
+      // Light / dark: the saved choice wins; otherwise follow the phone setting.
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch (e) {}
+      var dark = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+      root.setAttribute("data-theme", saved === "light" || saved === "dark" ? saved : dark ? "dark" : "light");
       root.classList.add("loading");
       var show = function () { root.classList.remove("loading"); };
       var css = document.createElement("link");
@@ -46,9 +51,12 @@
     <div class="hero-inner">
       <div class="topbar">
         <span class="brand"><span class="diya" aria-hidden="true"></span><span data-i18n="brand"></span></span>
-        <div class="lang" role="group" aria-label="Language">
-          <button type="button" data-lang="en">EN</button>
-          <button type="button" data-lang="gu">ગુજ</button>
+        <div class="top-actions">
+          <button type="button" class="theme-btn" id="theme-btn"></button>
+          <div class="lang" role="group" aria-label="Language">
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="gu">ગુજ</button>
+          </div>
         </div>
       </div>
       <span class="plan-badge" id="plan-badge" hidden></span>
