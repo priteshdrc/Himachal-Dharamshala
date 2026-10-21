@@ -57,6 +57,10 @@
     pdf: { en: "Download PDF", gu: "PDF ડાઉનલોડ કરો" },
     toLight: { en: "Switch to light mode", gu: "લાઇટ મોડ" },
     toDark: { en: "Switch to dark mode", gu: "ડાર્ક મોડ" },
+    pace: {
+      en: { relaxed: "Relaxed", moderate: "Moderate", busy: "Busy", tough: "Tough" },
+      gu: { relaxed: "આરામદાયક", moderate: "મધ્યમ", busy: "વ્યસ્ત", tough: "થકવનારો" },
+    },
     planBadge: { en: "Alternative plan · earlier version", gu: "વૈકલ્પિક પ્લાન · અગાઉનો" },
     altBookings: { en: "Bookings to change", gu: "બદલવાનાં બુકિંગ" },
     seeDay: { en: (n) => `See Day ${n} →`, gu: (n) => `દિવસ ${n} જુઓ →` },
@@ -196,7 +200,7 @@
         .map(
           (d) =>
             `<a href="#day-${d.n}" class="chip${todayDay && todayDay.n === d.n ? " is-today" : ""}" data-day="${d.n}">` +
-            `<b>${esc(ui("day"))} ${d.n}</b><span>${esc(fmtDate(d.date, { day: "numeric", month: "short" }))}</span></a>`
+            `<b>${d.pace ? `<i class="pace-dot pace-${d.pace}" aria-hidden="true"></i>` : ""}${esc(ui("day"))} ${d.n}</b><span>${esc(fmtDate(d.date, { day: "numeric", month: "short" }))}</span></a>`
         )
         .join("") +
       "</div>";
@@ -381,6 +385,7 @@
               <p class="day-date">${esc(fmtDate(d.date, { weekday: "long", day: "numeric", month: "long" }))}</p>
               <h2 id="day-${d.n}-h">${esc(t(d.title))}</h2>
               <p class="day-where">${ICON.pin}<span>${esc(t(d.where))}</span></p>
+              ${d.pace ? `<p class="pace pace-${d.pace}"><i aria-hidden="true"></i><b>${esc(ui("pace")[d.pace])}</b><span>${esc(t(d.paceWhy))}</span></p>` : ""}
             </div>
           </header>
 

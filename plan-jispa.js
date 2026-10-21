@@ -37,6 +37,51 @@
     T("Jispa", "જિસ્પા"), T("Mandi", "મંડી"), T("Chandigarh", "ચંડીગઢ"),
   ];
 
+  // ---------- Day 2: early night before the Day 3 start ----------
+  const d2 = {
+    ...day[2],
+    items: [
+      ...day[2].items.slice(0, 5),
+      { time: T("07:30 PM", "સાંજે 07:30"), text: T("Sri Harmandir Sahib (Golden Temple) at night.", "રાત્રે શ્રી હરિમંદિર સાહિબ (ગોલ્ડન ટેમ્પલ) દર્શન.") },
+      { time: T("08:30 PM", "રાત્રે 08:30"), text: T("Early dinner outside (see “Where to eat”).", "વહેલું રાત્રિ ભોજન બહાર (“ક્યાં જમવું” જુઓ).") },
+      {
+        time: T("10:00 PM", "રાત્રે 10:00"),
+        text: T("Back at the hotel and asleep by 10 — tomorrow starts early.", "હોટેલ પર પાછા અને 10 વાગ્યા સુધીમાં સૂઈ જાઓ — કાલે વહેલી શરૂઆત છે."),
+        tip: T("Pack the bags tonight so the morning is quick.", "આજે રાત્રે જ બેગ પેક કરી લો જેથી સવારે ઝડપ રહે."),
+      },
+    ],
+  };
+
+  // ---------- Day 3: Dainkund trek optional ----------
+  const d3 = {
+    ...day[3],
+    wake: T("06:00 AM (bags packed the night before)", "સવારે 06:00 (બેગ આગલી રાત્રે પેક)"),
+    items: day[3].items.map((it, i) =>
+      i === 3
+        ? {
+            ...it,
+            text: T("Dainkund Peak trek (2 km) — optional.", "દૈનકુંડ પીક ટ્રેક (2 કિમી) — વૈકલ્પિક."),
+            tip: T(
+              "Start by 2 PM to be off the trail before the 5:30 PM sunset. Anyone tired can skip it: rest at the hotel or wait at the base café and join the Mall Road walk later.",
+              "સાંજે 5:30ના સૂર્યાસ્ત પહેલાં પાછા આવવા 2 વાગ્યા સુધીમાં શરૂ કરો. થાકેલા હોય તે છોડી શકે: હોટેલ પર આરામ કરો અથવા બેઝ પાસે રાહ જુઓ અને પછી મોલ રોડ વોકમાં જોડાઓ."
+            ),
+          }
+        : it
+    ),
+  };
+
+  // ---------- Day 5: easy afternoon ----------
+  const d5 = {
+    ...day[5],
+    items: [
+      ...day[5].items.slice(0, 5),
+      { time: T("02:15 – 03:00 PM", "બપોરે 02:15 – 03:00"), text: T("Rest at the hotel after lunch.", "બપોરના ભોજન પછી હોટેલ પર આરામ.") },
+      { time: T("03:15 PM", "બપોરે 03:15"), text: T("St. John in the Wilderness Church — short taxi ride, no walking uphill.", "સેન્ટ જોન ઇન ધ વાઇલ્ડરનેસ ચર્ચ — ટૂંકી ટેક્સી સવારી, ચઢાણ નહીં.") },
+      { ...day[5].items[6], text: T("Naddi View Point — by taxi.", "નડ્ડી વ્યૂ પોઇન્ટ — ટેક્સીથી.") },
+      ...day[5].items.slice(7),
+    ],
+  };
+
   // ---------- Day 4: Dalhousie → Baglamukhi → Dharamshala ----------
   const d4 = {
     ...day[4],
@@ -249,7 +294,24 @@
     ],
   };
 
-  trip.days = trip.days.map((d) => ({ 4: d4, 6: d6, 7: d7, 8: d8, 9: d9 })[d.n] || d);
+  trip.days = trip.days.map((d) => ({ 2: d2, 3: d3, 4: d4, 5: d5, 6: d6, 7: d7, 8: d8, 9: d9 })[d.n] || d);
+
+  // ---------- How demanding each day is ----------
+  const pace = {
+    1: ["relaxed", T("Train day — rest on board", "ટ્રેનનો દિવસ — આરામ")],
+    2: ["moderate", T("Arrive after the night train; Wagah and Golden Temple; early night", "રાતની ટ્રેન પછી આગમન; વાઘા અને ગોલ્ડન ટેમ્પલ; વહેલા સૂઈ જવું")],
+    3: ["busy", T("Early start, ~5.5 h drive; Dainkund trek is optional", "વહેલી શરૂઆત, ~5.5 કલાક ડ્રાઇવ; દૈનકુંડ ટ્રેક વૈકલ્પિક")],
+    4: ["busy", T("~6 h on the road with three short stops", "~6 કલાક રસ્તા પર, ત્રણ ટૂંકા સ્ટોપ")],
+    5: ["moderate", T("Walking day, no long drive; easy afternoon by taxi", "ચાલવાનો દિવસ, લાંબી ડ્રાઇવ નહીં; બપોર પછી ટેક્સીથી આરામથી")],
+    6: ["tough", T("Longest day: ~8 h on the road, arrive after dark", "સૌથી લાંબો દિવસ: ~8 કલાક રસ્તા પર, અંધારા પછી આગમન")],
+    7: ["relaxed", T("Short drive; free afternoon to rest at altitude", "ટૂંકી ડ્રાઇવ; ઊંચાઈ પર આરામ માટે બપોર ખાલી")],
+    8: ["moderate", T("Short drives, cold and high; back by 4 PM", "ટૂંકી ડ્રાઇવ, ઠંડી અને ઊંચાઈ; સાંજે 4 સુધીમાં પાછા")],
+    9: ["busy", T("~6 h drive down to Mandi; free evening", "મંડી સુધી ~6 કલાક ડ્રાઇવ; સાંજ ખાલી")],
+    10: ["moderate", T("~5 h drive, about 5 h buffer before the train", "~5 કલાક ડ્રાઇવ, ટ્રેન પહેલાં લગભગ 5 કલાકનો સમય")],
+  };
+  trip.days.forEach((d) => {
+    if (pace[d.n]) [d.pace, d.paceWhy] = pace[d.n];
+  });
 
   // ---------- Map stops ----------
   trip.stops = [

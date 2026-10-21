@@ -34,6 +34,7 @@ const UI = {
     pnr: "PNR", cls: "Class", coach: "Coach", berths: "Berths", depart: "Departs", arrive: "Arrives",
     plan: "Plan for the day", footer: "Booking numbers are partly hidden; check your email or SMS for the full numbers.",
     date: "Date", place: "Place", status: "Status", train: "Train", from: "From", to: "To",
+    pace: { relaxed: "Relaxed", moderate: "Moderate", busy: "Busy", tough: "Tough" },
   },
   gu: {
     badge: "વૈકલ્પિક પ્લાન · અગાઉનો", generated: "પ્લાન તારીખ", nights: "રાત્રિ રોકાણ", trains: "ટ્રેન",
@@ -43,6 +44,7 @@ const UI = {
     pnr: "PNR", cls: "ક્લાસ", coach: "કોચ", berths: "બર્થ", depart: "રવાના", arrive: "આગમન",
     plan: "દિવસનો કાર્યક્રમ", footer: "બુકિંગ નંબર આંશિક રીતે છુપાવેલ છે; સંપૂર્ણ નંબર માટે ઇમેઇલ અથવા SMS જુઓ.",
     date: "તારીખ", place: "સ્થળ", status: "સ્થિતિ", train: "ટ્રેન", from: "થી", to: "સુધી",
+    pace: { relaxed: "આરામદાયક", moderate: "મધ્યમ", busy: "વ્યસ્ત", tough: "થકવનારો" },
   },
 };
 
@@ -92,6 +94,7 @@ function build(trip, lang) {
           <p class="date">${esc(fmt(d.date, { weekday: "long", day: "numeric", month: "long" }))}</p>
           <h2>${esc(t(d.title))}</h2>
           <p class="where">${esc(t(d.where))}</p>
+          ${d.pace ? `<p class="pace ${d.pace}"><i></i><b>${esc(u.pace[d.pace])}</b> · ${esc(t(d.paceWhy))}</p>` : ""}
         </div>
       </div>
       <p class="wake"><b>${u.wake}:</b> ${esc(t(d.wake))}</p>
@@ -163,6 +166,12 @@ table { border-collapse: collapse; width: 100%; }
 .date { margin: 0; color: #e0702b; font-weight: 700; font-size: 9.5pt; }
 .day h2 { margin: 1px 0 2px; font-size: 16pt; line-height: 1.2; }
 .where { margin: 0; color: #4a5268; font-size: 9.5pt; }
+.pace { margin: 3px 0 0; font-size: 9pt; color: #4a5268; }
+.pace i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
+.pace.relaxed i { background: #2f9e5b; } .pace.relaxed b { color: #2f9e5b; }
+.pace.moderate i { background: #c9a227; } .pace.moderate b { color: #a8861a; }
+.pace.busy i { background: #e0702b; } .pace.busy b { color: #e0702b; }
+.pace.tough i { background: #d64545; } .pace.tough b { color: #d64545; }
 .wake, .night { margin: 10px 0 0; padding: 6px 10px; border-radius: 8px; font-size: 9.5pt; }
 .wake { background: #fdebdc; }
 .night { background: #e1ebf8; }
