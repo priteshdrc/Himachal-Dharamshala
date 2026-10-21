@@ -13,9 +13,11 @@ Amritsar → Dalhousie → Dharamshala / McLeod Ganj → Kangra → Bir → Kull
 - Light / dark mode button in the header (remembered on the phone; follows the phone setting until tapped)
 - No caching: every visit loads the latest version, so pushed changes show up on the next refresh
 
-## Alternative plan
+## Main plan and earlier plan
 
-[`alt.html`](alt.html) shows an alternative itinerary (skip Chamera Lake and Kangra Fort, Baglamukhi on the way to Dharamshala, Bir and Kullu on Day 6, two nights in Lahaul with a full day at Jispa). It reuses the main plan's data and rewrites Days 4, 6, 7 and 8 in [`alt-plan.js`](alt-plan.js). Each page links to the other from the header.
+The main page ([`index.html`](index.html)) shows the final plan: skip Chamera Lake and Kangra Fort, Baglamukhi on the way to Dharamshala, Bir and Kullu on Day 6, and two nights in Lahaul with a full day at Jispa. It loads the data files and then [`plan-jispa.js`](plan-jispa.js), which rewrites Days 4, 6, 7 and 8.
+
+[`alt.html`](alt.html) keeps the earlier plan from the trip document for reference ([`plan-original.js`](plan-original.js) only labels it). Each page links to the other from the header.
 
 ## PDFs
 
@@ -23,7 +25,7 @@ Both pages have a **Download PDF** button that serves a pre-built PDF for the pl
 
 ## Editing the trip
 
-All content is in [`data.js`](data.js); vegetarian restaurant picks are in [`food.js`](food.js). Change a time, hotel or booking status there and push; the site updates.
+The earlier plan is in [`data.js`](data.js) and the final plan's changes are in [`plan-jispa.js`](plan-jispa.js); vegetarian restaurant picks are in [`food.js`](food.js). Change a time, hotel or booking status there and push; the site updates.
 When a pending hotel gets booked, change its `status` to `"confirmed"` and add `name`, `map`, `via`, `checkin` and `checkout`.
 
 Booking numbers (PNRs and booking IDs) are partly hidden because the published site is public.

@@ -17,7 +17,8 @@ const [fontsDir] = process.argv.slice(2);
 function loadTrip(alt) {
   const ctx = { window: {}, URL, console };
   vm.createContext(ctx);
-  const files = ["data.js", "route.js", "food.js", "weather.js", "videos.js"].concat(alt ? ["alt-plan.js"] : []);
+  // Main page = data files + the Jispa changes; alt page = the earlier plan.
+  const files = ["data.js", "route.js", "food.js", "weather.js", "videos.js", alt ? "plan-original.js" : "plan-jispa.js"];
   for (const f of files) {
     vm.runInContext(fs.readFileSync(path.join(repo, f), "utf8"), ctx, { filename: f });
   }
@@ -26,7 +27,7 @@ function loadTrip(alt) {
 
 const UI = {
   en: {
-    badge: "Alternative plan", generated: "Plan as of", nights: "Where we sleep", trains: "Trains",
+    badge: "Alternative plan · earlier version", generated: "Plan as of", nights: "Where we sleep", trains: "Trains",
     day: "Day", wake: "Wake up", stay: "Hotel stay", night: "Night stay", tip: "Tip",
     confirmed: "Confirmed", pending: "Booking pending", onTrain: "On the train", via: "Booked via",
     bookingId: "Booking ID", checkin: "Check-in", checkout: "Check-out", address: "Address",
@@ -35,7 +36,7 @@ const UI = {
     date: "Date", place: "Place", status: "Status", train: "Train", from: "From", to: "To",
   },
   gu: {
-    badge: "વૈકલ્પિક પ્લાન", generated: "પ્લાન તારીખ", nights: "રાત્રિ રોકાણ", trains: "ટ્રેન",
+    badge: "વૈકલ્પિક પ્લાન · અગાઉનો", generated: "પ્લાન તારીખ", nights: "રાત્રિ રોકાણ", trains: "ટ્રેન",
     day: "દિવસ", wake: "ઉઠવાનો સમય", stay: "હોટેલ રોકાણ", night: "રાત્રિ રોકાણ", tip: "નોંધ",
     confirmed: "કન્ફર્મ", pending: "બુકિંગ બાકી", onTrain: "ટ્રેનમાં", via: "બુકિંગ",
     bookingId: "બુકિંગ ID", checkin: "ચેક-ઇન", checkout: "ચેક-આઉટ", address: "સરનામું",
@@ -121,7 +122,7 @@ function build(trip, lang) {
       <td>${esc(tr.cls)} · ${esc(tr.coach)}<br><small>${esc(tr.berths)}</small></td>
     </tr>`).join("");
 
-  const n = trip.altNote;
+  const n = trip.planNote;
   const font = (file) => "file://" + path.join(fontsDir, file);
   return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>${esc(t(trip.title))}${trip.alt ? " — " + u.badge : ""}</title>
 <style>
@@ -189,7 +190,7 @@ table { border-collapse: collapse; width: 100%; }
     <p class="gen">${u.generated}: ${esc(fmt(new Date().toISOString().slice(0, 10), { day: "numeric", month: "long", year: "numeric" }))}</p>
   </div>
   ${n ? `<div class="box"><h3>${esc(t(n.title))}</h3><ul>${n.changes.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>
-    <h4>${lang === "gu" ? "બદલવાનાં બુકિંગ" : "Bookings to change"}</h4><ul>${n.bookings.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul></div>` : ""}
+    ${n.bookings ? `<h4>${lang === "gu" ? "બદલવાનાં બુકિંગ" : "Bookings to change"}</h4><ul>${n.bookings.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>` : ""}</div>` : ""}
   <div class="grid2">
     <div class="panel"><h3>${u.nights}</h3><table class="list">${nights}</table></div>
     <div class="panel"><h3>${u.trains}</h3><table class="list">${trains}</table><p class="foot">${u.footer}</p></div>

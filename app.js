@@ -52,12 +52,12 @@
     },
     places: { en: (n) => `${n} picks`, gu: (n) => `${n} વિકલ્પ` },
     journey: { en: "Journey map", gu: "યાત્રાનો નકશો" },
-    planAlt: { en: "See the alternative plan (Jispa) →", gu: "વૈકલ્પિક પ્લાન (જિસ્પા) જુઓ →" },
+    planAlt: { en: "Earlier plan (Chamera, Kangra) →", gu: "અગાઉનો પ્લાન (ચમેરા, કાંગડા) →" },
     planMain: { en: "← Back to the main plan", gu: "← મુખ્ય પ્લાન પર પાછા" },
     pdf: { en: "Download PDF", gu: "PDF ડાઉનલોડ કરો" },
     toLight: { en: "Switch to light mode", gu: "લાઇટ મોડ" },
     toDark: { en: "Switch to dark mode", gu: "ડાર્ક મોડ" },
-    planBadge: { en: "Alternative plan", gu: "વૈકલ્પિક પ્લાન" },
+    planBadge: { en: "Alternative plan · earlier version", gu: "વૈકલ્પિક પ્લાન · અગાઉનો" },
     altBookings: { en: "Bookings to change", gu: "બદલવાનાં બુકિંગ" },
     seeDay: { en: (n) => `See Day ${n} →`, gu: (n) => `દિવસ ${n} જુઓ →` },
     nightHere: { en: "Night stay", gu: "રાત્રિ રોકાણ" },
@@ -160,14 +160,13 @@
       );
       pdf.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>${esc(ui("pdf"))}</span>`;
     }
-    const note = $("#alt-note");
-    if (note && trip.altNote) {
-      const n = trip.altNote;
+    const note = $("#plan-note");
+    if (note && trip.planNote) {
+      const n = trip.planNote;
       note.innerHTML = `
         <h2>${esc(t(n.title))}</h2>
         <ul>${n.changes.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>
-        <h3>${esc(ui("altBookings"))}</h3>
-        <ul>${n.bookings.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>`;
+        ${n.bookings ? `<h3>${esc(ui("altBookings"))}</h3><ul>${n.bookings.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>` : ""}`;
     }
     $("#dates").textContent = t(trip.dates);
     $("#route").innerHTML = trip.route.map((r) => `<li>${esc(t(r))}</li>`).join("");

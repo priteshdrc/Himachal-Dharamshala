@@ -1,9 +1,10 @@
-/* Alternative plan (alt.html): skip Chamera Lake and Kangra Fort, see
+/* Final plan (index.html): skip Chamera Lake and Kangra Fort, see
    Baglamukhi on the way to Dharamshala, go to Bir and Kullu on Day 6, and
    spend two nights in Lahaul with a full day at Jispa.
    Trains and the Dalhousie / Dharamshala bookings stay the same.
-   Loaded after data.js, route.js, food.js, weather.js and videos.js; it
-   rewrites Days 4, 6, 7 and 8 and reuses everything else from the main plan. */
+   data.js and the other data files hold the earlier plan (shown on alt.html);
+   this file is loaded after them on the main page and rewrites Days 4, 6, 7
+   and 8, reusing everything else. */
 
 (function () {
   const T = (en, gu) => ({ en, gu });
@@ -14,9 +15,8 @@
   const mapsDir = (q) => "https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=" + encodeURIComponent(q);
   const HOMESTAY = "Valley View Homestay, Gondla, Lahaul, Himachal Pradesh 175140";
 
-  trip.alt = true;
-  trip.altNote = {
-    title: T("What's different in this plan", "આ પ્લાનમાં શું અલગ છે"),
+  trip.planNote = {
+    title: T("Changes from the earlier plan", "અગાઉના પ્લાનથી ફેરફાર"),
     changes: [
       T("Skip Chamera Lake and Kangra Fort.", "ચમેરા લેક અને કાંગડા ફોર્ટ છોડો."),
       T("Day 4: Mata Baglamukhi, HPCA Stadium and Kunal Pathri on the way to Dharamshala.", "દિવસ 4: ધર્મશાળા જતાં રસ્તામાં માતા બગલામુખી, HPCA સ્ટેડિયમ અને કુનાલ પથરી."),
