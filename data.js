@@ -156,6 +156,10 @@ window.TRIP = {
             "Arrive in Dalhousie, check into your hotel, and grab a quick lunch.",
             "ડેલહાઉસી આગમન, હોટેલમાં ચેક-ઇન અને ઝડપી લંચ."
           ),
+          tip: T(
+            "Hotel check-in is from 2 PM — leave the luggage at reception and check in after the trek.",
+            "હોટેલ ચેક-ઇન બપોરે 2 પછી છે — સામાન રિસેપ્શન પર મૂકો અને ટ્રેક પછી ચેક-ઇન કરો."
+          ),
         },
         { time: T("01:30 PM", "બપોરે 01:30"), text: T("Drive to the Dainkund Peak base.", "દૈનકુંડ પીક બેઝ તરફ ડ્રાઇવ."), drive: true },
         {
@@ -232,7 +236,14 @@ window.TRIP = {
       where: T("McLeod Ganj", "મેકલિયોડ ગંજ"),
       wake: T("06:00 AM", "સવારે 06:00"),
       items: [
-        { time: T("07:00 AM", "સવારે 07:00"), text: T("Leave the hotel to enjoy the crisp mountain air.", "પહાડી તાજી હવાનો આનંદ માણવા હોટેલથી નીકળો.") },
+        {
+          time: T("07:00 AM", "સવારે 07:00"),
+          text: T("Leave the hotel to enjoy the crisp mountain air.", "પહાડી તાજી હવાનો આનંદ માણવા હોટેલથી નીકળો."),
+          tip: T(
+            "McLeod Ganj lanes are too narrow for the Tempo Traveller — walk or use local taxis around McLeod, Bhagsu and Naddi today.",
+            "મેકલિયોડ ગંજની ગલીઓ ટેમ્પો ટ્રાવેલર માટે ખૂબ સાંકડી છે — આજે મેકલિયોડ, ભાગસુ અને નડ્ડીમાં ચાલીને અથવા સ્થાનિક ટેક્સીથી ફરો."
+          ),
+        },
         { time: T("07:30 AM", "સવારે 07:30"), text: T("Breakfast at a local bakery near the Main Square.", "મેઇન સ્ક્વેર નજીકની સ્થાનિક બેકરીમાં નાસ્તો.") },
         { time: T("08:45 AM", "સવારે 08:45"), text: T("Dalai Lama Temple & Museum (catch the morning chants).", "દલાઈ લામા મંદિર અને મ્યુઝિયમ (સવારના પ્રાર્થના મંત્રો સાંભળો).") },
         { time: T("11:00 AM", "સવારે 11:00"), text: T("Bhagsunag Temple and the hike to Bhagsu Waterfall.", "ભાગસુનાગ મંદિર અને ભાગસુ ધોધ તરફ હાઇકિંગ.") },
