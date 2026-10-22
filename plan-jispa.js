@@ -20,21 +20,21 @@
     changes: [
       T("Skip Chamera Lake and Kangra Fort.", "ચમેરા લેક અને કાંગડા ફોર્ટ છોડો."),
       T("Day 4: Mata Baglamukhi, HPCA Stadium and Kunal Pathri on the way to Dharamshala.", "દિવસ 4: ધર્મશાળા જતાં રસ્તામાં માતા બગલામુખી, HPCA સ્ટેડિયમ અને કુનાલ પથરી."),
-      T("Day 6: Norbulingka, Tashi Jong and Bir (no Baijnath), then night in Kullu / Bhuntar.", "દિવસ 6: નોરબુલિંગકા, તાશી જોંગ અને બીર (વૈજનાથ નહીં), પછી કુલ્લુ / ભુંતરમાં રાત્રિ રોકાણ."),
-      T("Day 7: Atal Tunnel and Sissu, then straight to the Gondla homestay to rest — first night in Lahaul.", "દિવસ 7: અટલ ટનલ અને સિસ્સુ, પછી સીધા ગોંદલા હોમસ્ટે પર આરામ — લાહૌલમાં પહેલી રાત."),
+      T("Day 6: Norbulingka, Tashi Jong, Palpung Sherabling and Bir (no Baijnath), then night in Mandi — no night driving.", "દિવસ 6: નોરબુલિંગકા, તાશી જોંગ, પાલપુંગ શેરાબલિંગ અને બીર (વૈજનાથ નહીં), પછી મંડીમાં રાત — રાત્રે ડ્રાઇવિંગ નહીં."),
+      T("Day 7: Mandi → Atal Tunnel → Sissu, then the Gondla homestay — first night in Lahaul.", "દિવસ 7: મંડી → અટલ ટનલ → સિસ્સુ, પછી ગોંદલા હોમસ્ટે — લાહૌલમાં પહેલી રાત."),
       T("Day 8: a full day at Jispa and Darcha, warm lunch in Keylong (Baralacha La only if the road is open).", "દિવસ 8: જિસ્પા અને દારચામાં આખો દિવસ, કેલોંગમાં ગરમ ભોજન (બારાલાચા લા ફક્ત રસ્તો ખુલ્લો હોય તો)."),
     ],
     bookings: [
       T("Valley View Homestay: change to 2 nights, 14–15 Nov (now booked for 15 Nov only).", "વેલી વ્યૂ હોમસ્ટે: 2 રાત, 14–15 નવે કરાવો (હાલ ફક્ત 15 નવે બુક છે)."),
-      T("Book Kullu / Bhuntar for 13 Nov (no Kangra night).", "13 નવે માટે કુલ્લુ / ભુંતર બુક કરો (કાંગડામાં રાત નહીં)."),
+      T("Mandi: book for 13 Nov as well as 16 Nov, ideally the same hotel (no Kangra or Kullu night).", "મંડી: 16 નવે સાથે 13 નવે માટે પણ બુક કરો, શક્ય હોય તો એક જ હોટેલ (કાંગડા કે કુલ્લુમાં રાત નહીં)."),
       T("Trains, Hotel Himdhara and Hotel Pine View stay as booked.", "ટ્રેન, હોટેલ હિમધારા અને હોટેલ પાઈન વ્યૂ જેમ બુક છે તેમ જ."),
     ],
   };
 
   trip.route = [
     T("Ahmedabad", "અમદાવાદ"), T("Amritsar", "અમૃતસર"), T("Dalhousie", "ડેલહાઉસી"),
-    T("Dharamshala", "ધર્મશાળા"), T("Bir", "બીર"), T("Kullu", "કુલ્લુ"), T("Lahaul", "લાહૌલ"),
-    T("Jispa", "જિસ્પા"), T("Mandi", "મંડી"), T("Chandigarh", "ચંડીગઢ"),
+    T("Dharamshala", "ધર્મશાળા"), T("Bir", "બીર"), T("Mandi", "મંડી"), T("Lahaul", "લાહૌલ"),
+    T("Jispa", "જિસ્પા"), T("Chandigarh", "ચંડીગઢ"),
   ];
 
   // ---------- Day 2: early night before the Day 3 start ----------
@@ -132,33 +132,36 @@
     videos: [...day[4].videos, ...day[6].videos],
   };
 
-  // ---------- Day 6: Norbulingka → Tashi Jong → Bir → Kullu ----------
+  // ---------- Day 6: Norbulingka → Tashi Jong → Sherabling → Bir → Mandi ----------
+  const mandiStay = (nights) => ({ ...day[9].stay, nights });
   const d6 = {
     ...day[6],
-    title: T("Norbulingka, Tashi Jong & Bir", "નોરબુલિંગકા, તાશી જોંગ અને બીર"),
-    where: T("Dharamshala → Palampur → Tashi Jong → Bir → Kullu", "ધર્મશાળા → પાલમપુર → તાશી જોંગ → બીર → કુલ્લુ"),
+    title: T("Norbulingka, Sherabling & Bir", "નોરબુલિંગકા, શેરાબલિંગ અને બીર"),
+    where: T("Dharamshala → Palampur → Tashi Jong → Sherabling → Bir → Mandi", "ધર્મશાળા → પાલમપુર → તાશી જોંગ → શેરાબલિંગ → બીર → મંડી"),
     wake: T("06:30 AM", "સવારે 06:30"),
     items: [
       { time: T("07:45 AM", "સવારે 07:45"), text: T("Early breakfast, check out of Hotel Pine View.", "વહેલો નાસ્તો, હોટેલ પાઈન વ્યૂમાંથી ચેક-આઉટ."), drive: true },
+      { time: T("09:00 – 10:15 AM", "સવારે 09:00 – 10:15"), text: T("Norbulingka Institute, Sidhpur — gardens, workshops, temple.", "નોરબુલિંગકા ઇન્સ્ટિટ્યૂટ, સિદ્ધપુર — બગીચા, કારીગરી, મંદિર.") },
+      { time: T("10:15 – 11:15 AM", "સવારે 10:15 – 11:15"), text: T("Drive via Palampur, short stop at the tea gardens.", "પાલમપુર થઈને ડ્રાઇવ, ચાના બગીચાઓમાં ટૂંકો સ્ટોપ."), drive: true },
+      { time: T("11:15 – 11:45 AM", "સવારે 11:15 – 11:45"), text: T("Tashi Jong Khampagar Monastery, Taragarh (on the main road).", "તાશી જોંગ ખામ્પાગર મઠ, તારાગઢ (મુખ્ય રસ્તા પર).") },
       {
-        time: T("09:00 – 10:15 AM", "સવારે 09:00 – 10:15"),
-        text: T("Norbulingka Institute, Sidhpur — gardens, workshops, temple.", "નોરબુલિંગકા ઇન્સ્ટિટ્યૂટ, સિદ્ધપુર — બગીચા, કારીગરી, મંદિર."),
-        tip: T("For paragliding at Bir, skip Norbulingka and drive straight to Bir instead.", "બીરમાં પેરાગ્લાઇડિંગ કરવું હોય તો નોરબુલિંગકા છોડીને સીધા બીર જાઓ."),
+        time: T("12:00 – 12:45 PM", "બપોરે 12:00 – 12:45"),
+        text: T("Palpung Sherabling Monastery, Bhattu — on the lane between Baijnath and Bir.", "પાલપુંગ શેરાબલિંગ મઠ, ભટ્ટુ — વૈજનાથ અને બીર વચ્ચેના રસ્તે."),
+        tip: T("Main hall reportedly open 8:30 AM – 4:30 PM. No photos inside the prayer halls; dress modestly.", "મુખ્ય હોલ સામાન્ય રીતે સવારે 8:30 – સાંજે 4:30 ખુલ્લો. પ્રાર્થના હોલમાં ફોટા નહીં; સાદાં કપડાં પહેરો."),
       },
-      { time: T("10:15 – 11:30 AM", "સવારે 10:15 – 11:30"), text: T("Drive via Palampur, short stop at the tea gardens.", "પાલમપુર થઈને ડ્રાઇવ, ચાના બગીચાઓમાં ટૂંકો સ્ટોપ."), drive: true },
-      { time: T("11:30 AM – 12:15 PM", "સવારે 11:30 – બપોરે 12:15"), text: T("Tashi Jong Khampagar Monastery, Taragarh (on the main road).", "તાશી જોંગ ખામ્પાગર મઠ, તારાગઢ (મુખ્ય રસ્તા પર).") },
-      { time: T("12:45 – 01:45 PM", "બપોરે 12:45 – 01:45"), text: T("Lunch in Bir.", "બીરમાં બપોરનું ભોજન.") },
-      { time: T("01:45 – 02:45 PM", "બપોરે 01:45 – 02:45"), text: T("Bir Tibetan Colony, Chokling Monastery and the paragliding landing site.", "બીર તિબેટીયન કોલોની, ચોકલિંગ મઠ અને પેરાગ્લાઇડિંગ લેન્ડિંગ સાઇટ.") },
+      { time: T("01:00 – 02:00 PM", "બપોરે 01:00 – 02:00"), text: T("Lunch in Bir.", "બીરમાં બપોરનું ભોજન.") },
+      { time: T("02:00 – 03:00 PM", "બપોરે 02:00 – 03:00"), text: T("Bir Tibetan Colony, Chokling Monastery and the paragliding landing site.", "બીર તિબેટીયન કોલોની, ચોકલિંગ મઠ અને પેરાગ્લાઇડિંગ લેન્ડિંગ સાઇટ.") },
       {
-        time: T("02:45 – 07:30 PM", "બપોરે 02:45 – સાંજે 07:30"),
-        text: T("Drive via Joginder Nagar and Mandi to Kullu / Bhuntar (about 5 hours).", "જોગિન્દરનગર અને મંડી થઈને કુલ્લુ / ભુંતર ડ્રાઇવ (લગભગ 5 કલાક)."),
-        tip: T("Leave Bir by 2:45 PM so the mountain roads before Mandi are done in daylight.", "બીરથી 2:45 સુધીમાં નીકળો જેથી મંડી પહેલાંના પહાડી રસ્તા દિવસના પ્રકાશમાં પૂરા થાય."),
+        time: T("03:00 – 05:45 PM", "બપોરે 03:00 – સાંજે 05:45"),
+        text: T("Drive via Joginder Nagar to Mandi (about 85 km, 2.5–3 hours).", "જોગિન્દરનગર થઈને મંડી ડ્રાઇવ (લગભગ 85 કિમી, 2.5–3 કલાક)."),
+        tip: T("Leave Bir by 3 PM — only the last 20–30 minutes are after sunset.", "બીરથી 3 વાગ્યા સુધીમાં નીકળો — ફક્ત છેલ્લી 20–30 મિનિટ સૂર્યાસ્ત પછી."),
         drive: true,
       },
+      { time: T("06:00 PM", "સાંજે 06:00"), text: T("Check in at the Mandi hotel; easy evening.", "મંડીની હોટેલમાં ચેક-ઇન; આરામની સાંજ.") },
     ],
-    stay: day[7].stay,
-    night: T("Kullu / Bhuntar", "કુલ્લુ / ભુંતર"),
-    wx: [wxPlace("bir"), wxPlace("kullu")],
+    stay: mandiStay(T("Book the same hotel for 13 and 16 Nov · Night 1", "13 અને 16 નવે માટે એક જ હોટેલ બુક કરો · પહેલી રાત")),
+    night: T("Mandi", "મંડી"),
+    wx: [wxPlace("bir"), wxPlace("mandi")],
     food: [
       {
         meal: "breakfast", time: T("7:00 AM", "સવારે 07:00"),
@@ -167,16 +170,18 @@
         note: T("Ask the hotel the night before for an early breakfast.", "વહેલા નાસ્તા માટે આગલી રાત્રે હોટેલને કહો."),
       },
       day[7].food[1],
-      day[7].food[2],
+      day[9].food[2],
     ],
     places: [
       { file: "Norbulinka.JPG", taken: "2010-08", name: T("Norbulingka Institute", "નોરબુલિંગકા ઇન્સ્ટિટ્યૂટ") },
+      { file: "Sherabling_Monastery_-_Inner_Sanctum.jpg", name: T("Palpung Sherabling Monastery", "પાલપુંગ શેરાબલિંગ મઠ") },
       { file: "BIR_BILLING_PARAGLIDING.jpg", taken: "2017-12", name: T("Paragliding at Bir Billing", "બીર બિલિંગ પેરાગ્લાઇડિંગ") },
+      { file: "Victoria_Bridge_Mandi.JPG", taken: "2011-12", name: T("Victoria Bridge over the Beas, Mandi", "બિયાસ પર વિક્ટોરિયા બ્રિજ, મંડી") },
     ],
     videos: day[7].videos,
   };
 
-  // ---------- Day 7: Kullu → Atal Tunnel → Sissu → Gondla ----------
+  // ---------- Day 7: Mandi → Atal Tunnel → Sissu → Gondla ----------
   const homestay = (nights) => ({
     ...day[8].stay,
     status: "pending",
@@ -187,28 +192,42 @@
   const d7 = {
     ...day[7],
     title: T("Through the Tunnel to Lahaul", "અટલ ટનલ થઈને લાહૌલ"),
-    where: T("Kullu → Atal Tunnel → Sissu → Gondla", "કુલ્લુ → અટલ ટનલ → સિસ્સુ → ગોંદલા"),
-    wake: T("06:30 AM", "સવારે 06:30"),
+    where: T("Mandi → Kullu → Atal Tunnel → Sissu → Gondla", "મંડી → કુલ્લુ → અટલ ટનલ → સિસ્સુ → ગોંદલા"),
+    wake: T("06:00 AM", "સવારે 06:00"),
     items: [
       {
-        time: T("07:30 – 10:30 AM", "સવારે 07:30 – 10:30"),
-        text: T("Drive from Kullu to Sissu via the Atal Tunnel.", "અટલ ટનલ થઈને કુલ્લુથી સિસ્સુ ડ્રાઇવ."),
-        tip: T("Check the Atal Tunnel / Lahaul road status before leaving — heavy snow can close it at short notice.", "નીકળતાં પહેલાં અટલ ટનલ / લાહૌલ રસ્તાની સ્થિતિ તપાસો — ભારે બરફવર્ષામાં અચાનક બંધ થઈ શકે છે."),
+        time: T("07:00 AM – 12:15 PM", "સવારે 07:00 – બપોરે 12:15"),
+        text: T("Drive from Mandi via Kullu and the Atal Tunnel to Sissu (about 160 km).", "મંડીથી કુલ્લુ અને અટલ ટનલ થઈને સિસ્સુ ડ્રાઇવ (લગભગ 160 કિમી)."),
+        tip: T("Leave by 7 AM sharp. Check the Atal Tunnel / Lahaul road status the evening before — heavy snow can close it at short notice.", "સવારે 7 વાગ્યે ચોક્કસ નીકળો. આગલી સાંજે અટલ ટનલ / લાહૌલ રસ્તાની સ્થિતિ તપાસો — ભારે બરફવર્ષામાં અચાનક બંધ થઈ શકે છે."),
         drive: true,
       },
-      { time: T("10:30 AM – 12:30 PM", "સવારે 10:30 – બપોરે 12:30"), text: T("Sissu: waterfall viewpoint and the Chandra river banks.", "સિસ્સુ: વોટરફોલ વ્યૂપોઇન્ટ અને ચંદ્રા નદીનો કિનારો.") },
       { time: T("12:30 – 01:30 PM", "બપોરે 12:30 – 01:30"), text: T("Lunch around Sissu / Koksar.", "સિસ્સુ / કોકસર આસપાસ બપોરનું ભોજન.") },
-      { time: T("01:30 – 02:00 PM", "બપોરે 01:30 – 02:00"), text: T("Short drive on to Gondla (about 15 km).", "ગોંદલા સુધી ટૂંકી ડ્રાઇવ (લગભગ 15 કિમી)."), drive: true },
       {
-        time: T("02:00 PM", "બપોરે 02:00"),
-        text: T("Check in at the homestay and rest for the afternoon — let your body get used to the altitude.", "હોમસ્ટેમાં ચેક-ઇન અને બપોરે આરામ — ઊંચાઈની ટેવ પડવા દો."),
+        time: T("01:30 – 02:15 PM", "બપોરે 01:30 – 02:15"),
+        text: T("Sissu: waterfall viewpoint and the Chandra river banks.", "સિસ્સુ: વોટરફોલ વ્યૂપોઇન્ટ અને ચંદ્રા નદીનો કિનારો."),
+        tip: T("If snow is forecast, skip this stop and go straight to Gondla.", "બરફવર્ષાની આગાહી હોય તો આ સ્ટોપ છોડીને સીધા ગોંદલા જાઓ."),
+      },
+      { time: T("02:15 – 02:45 PM", "બપોરે 02:15 – 02:45"), text: T("Short drive on to Gondla (about 15 km).", "ગોંદલા સુધી ટૂંકી ડ્રાઇવ (લગભગ 15 કિમી)."), drive: true },
+      {
+        time: T("02:45 PM", "બપોરે 02:45"),
+        text: T("Check in at the homestay and rest — let your body get used to the altitude.", "હોમસ્ટેમાં ચેક-ઇન અને આરામ — ઊંચાઈની ટેવ પડવા દો."),
         tip: T("Gondla is before Keylong, so there's no need to drive on to Keylong today — you pass it tomorrow.", "ગોંદલા કેલોંગ પહેલાં આવે છે, તેથી આજે કેલોંગ જવાની જરૂર નથી — કાલે ત્યાંથી પસાર થશો."),
       },
     ],
     stay: homestay(T("Change booking: 2 nights, 14–15 Nov · Night 1", "બુકિંગ બદલો: 2 રાત, 14–15 નવે · પહેલી રાત")),
     night: T("Gondla / Lahaul", "ગોંદલા / લાહૌલ"),
     wx: [wxPlace("sissu"), wxPlace("keylong")],
-    food: [day[8].food[0], day[8].food[1], day[8].food[2]],
+    food: [
+      {
+        meal: "breakfast", time: T("~6:30 AM", "~સવારે 6:30"),
+        name: T("Early breakfast at the Mandi hotel, or packed", "મંડીની હોટેલમાં વહેલો નાસ્તો, અથવા પેક કરેલો"),
+        pure: false,
+        note: T("Nothing in Mandi town was confirmed open before 7 AM — ask the hotel the evening before.", "મંડી શહેરમાં સવારે 7 પહેલાં ખુલ્લું કંઈ નક્કી નથી — આગલી સાંજે હોટેલને કહો."),
+        alt: { name: T("Sapna Food Corner — on the way, ~9 AM", "સપના ફૂડ કોર્નર — રસ્તામાં, ~સવારે 9"), area: T("Dhalpur, Kullu", "ઢાલપુર, કુલ્લુ"), pure: true, query: "Sapna Food Corner, Dhalpur, Kullu" },
+      },
+      day[8].food[1],
+      day[8].food[2],
+    ],
     places: [
       { file: "Atal_Tunnel_01.jpg", name: T("Atal Tunnel (Rohtang)", "અટલ ટનલ (રોહતાંગ)") },
       { file: "Sissu_Water_Fall.jpg", taken: "2016-06", name: T("Sissu Waterfall", "સિસ્સુ વોટરફોલ") },
@@ -280,6 +299,7 @@
   // ---------- Day 9: Gondla → Mandi ----------
   const d9 = {
     ...day[9],
+    stay: mandiStay(T("Same hotel as 13 Nov · Night 2", "13 નવે જેવી જ હોટેલ · બીજી રાત")),
     where: T("Gondla → Atal Tunnel → Mandi", "ગોંદલા → અટલ ટનલ → મંડી"),
     items: [
       { time: T("07:30 – 09:00 AM", "સવારે 07:30 – 09:00"), text: T("A crisp, snowy morning around the Gondla homestay; check out.", "ગોંદલા હોમસ્ટે આસપાસ તાજી, બરફીલી સવાર; ચેક-આઉટ.") },
@@ -303,8 +323,8 @@
     3: ["busy", T("Early start, ~5.5 h drive; Dainkund trek is optional", "વહેલી શરૂઆત, ~5.5 કલાક ડ્રાઇવ; દૈનકુંડ ટ્રેક વૈકલ્પિક")],
     4: ["busy", T("~6 h on the road with three short stops", "~6 કલાક રસ્તા પર, ત્રણ ટૂંકા સ્ટોપ")],
     5: ["moderate", T("Walking day, no long drive; easy afternoon by taxi", "ચાલવાનો દિવસ, લાંબી ડ્રાઇવ નહીં; બપોર પછી ટેક્સીથી આરામથી")],
-    6: ["tough", T("Longest day: ~8 h on the road, arrive after dark", "સૌથી લાંબો દિવસ: ~8 કલાક રસ્તા પર, અંધારા પછી આગમન")],
-    7: ["relaxed", T("Short drive; free afternoon to rest at altitude", "ટૂંકી ડ્રાઇવ; ઊંચાઈ પર આરામ માટે બપોર ખાલી")],
+    6: ["busy", T("~5.5 h on the road with four stops; reach Mandi around sunset", "~5.5 કલાક રસ્તા પર, ચાર સ્ટોપ; સૂર્યાસ્ત આસપાસ મંડી")],
+    7: ["busy", T("~5.5 h drive up to Lahaul; early start, rest at the homestay", "લાહૌલ સુધી ~5.5 કલાક ડ્રાઇવ; વહેલી શરૂઆત, હોમસ્ટે પર આરામ")],
     8: ["moderate", T("Short drives, cold and high; back by 4 PM", "ટૂંકી ડ્રાઇવ, ઠંડી અને ઊંચાઈ; સાંજે 4 સુધીમાં પાછા")],
     9: ["busy", T("~6 h drive down to Mandi; free evening", "મંડી સુધી ~6 કલાક ડ્રાઇવ; સાંજ ખાલી")],
     10: ["moderate", T("~5 h drive, about 5 h buffer before the train", "~5 કલાક ડ્રાઇવ, ટ્રેન પહેલાં લગભગ 5 કલાકનો સમય")],
@@ -329,10 +349,12 @@
       what: T("Tibetan arts institute and gardens", "તિબેટીયન કળા સંસ્થા અને બગીચા") },
     { day: 6, date: "2026-11-13", name: T("Tashi Jong", "તાશી જોંગ"), lat: 32.054, lon: 76.597,
       what: T("Khampagar Monastery, Taragarh", "ખામ્પાગર મઠ, તારાગઢ") },
+    { day: 6, date: "2026-11-13", name: T("Palpung Sherabling", "પાલપુંગ શેરાબલિંગ"), lat: 32.035, lon: 76.68,
+      what: T("Monastery on the lane between Baijnath and Bir", "વૈજનાથ અને બીર વચ્ચેના રસ્તે મઠ") },
     { day: 6, date: "2026-11-13", name: T("Bir", "બીર"), lat: 32.044, lon: 76.723,
       what: T("Tibetan Colony, paragliding landing site", "તિબેટીયન કોલોની, પેરાગ્લાઇડિંગ લેન્ડિંગ સાઇટ") },
-    { day: 6, date: "2026-11-13", name: T("Kullu / Bhuntar", "કુલ્લુ / ભુંતર"), lat: 31.9578, lon: 77.1095, night: true,
-      what: T("Night stay", "રાત્રિ રોકાણ") },
+    { day: 6, date: "2026-11-13", name: T("Mandi", "મંડી"), lat: 31.708, lon: 76.9318, night: true,
+      what: T("Night 1 in Mandi, by the Beas river", "મંડીમાં પહેલી રાત, બિયાસ નદી કિનારે") },
     { day: 7, date: "2026-11-14", name: T("Atal Tunnel", "અટલ ટનલ"), lat: 32.385, lon: 77.15, via: false,
       what: T("Through the tunnel into Lahaul", "ટનલ થઈને લાહૌલમાં") },
     { day: 7, date: "2026-11-14", name: T("Sissu", "સિસ્સુ"), lat: 32.48, lon: 77.125,
