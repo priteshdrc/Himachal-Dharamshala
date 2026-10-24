@@ -24,12 +24,50 @@
       T("Day 7: Mandi → Atal Tunnel → Sissu, then the Gondla homestay — first night in Lahaul.", "દિવસ 7: મંડી → અટલ ટનલ → સિસ્સુ, પછી ગોંદલા હોમસ્ટે — લાહૌલમાં પહેલી રાત."),
       T("Day 8: a full day at Jispa and Darcha, warm lunch in Keylong (Baralacha La only if the road is open).", "દિવસ 8: જિસ્પા અને દારચામાં આખો દિવસ, કેલોંગમાં ગરમ ભોજન (બારાલાચા લા ફક્ત રસ્તો ખુલ્લો હોય તો)."),
     ],
-    bookings: [
-      T("Valley View Homestay: change to 2 nights, 14–15 Nov (now booked for 15 Nov only).", "વેલી વ્યૂ હોમસ્ટે: 2 રાત, 14–15 નવે કરાવો (હાલ ફક્ત 15 નવે બુક છે)."),
-      T("Mandi: book for 13 Nov as well as 16 Nov, ideally the same hotel (no Kangra or Kullu night).", "મંડી: 16 નવે સાથે 13 નવે માટે પણ બુક કરો, શક્ય હોય તો એક જ હોટેલ (કાંગડા કે કુલ્લુમાં રાત નહીં)."),
-      T("Trains, Hotel Himdhara and Hotel Pine View stay as booked.", "ટ્રેન, હોટેલ હિમધારા અને હોટેલ પાઈન વ્યૂ જેમ બુક છે તેમ જ."),
-    ],
   };
+
+  // ---------- Checklist shown at the bottom of the page ----------
+  // Set done: true when something is booked or sorted.
+  trip.todo = [
+    {
+      what: T("Book a hotel in Amritsar near the Golden Temple", "અમૃતસરમાં ગોલ્ડન ટેમ્પલ નજીક હોટેલ બુક કરો"),
+      when: T("Night of Mon 9 Nov", "સોમ 9 નવેની રાત"),
+      link: mapsFind("Hotels near Golden Temple, Amritsar"),
+    },
+    {
+      what: T("Book a hotel in Mandi by the Beas river — the same hotel for both nights", "મંડીમાં બિયાસ નદી કિનારે હોટેલ બુક કરો — બંને રાત માટે એક જ હોટેલ"),
+      when: T("Nights of Fri 13 and Mon 16 Nov", "શુક્ર 13 અને સોમ 16 નવેની રાત"),
+      link: mapsFind("Hotels near Beas River, Mandi, Himachal Pradesh"),
+    },
+    {
+      what: T("Valley View Homestay: change the Goibibo booking to 2 nights", "વેલી વ્યૂ હોમસ્ટે: Goibibo બુકિંગ 2 રાતનું કરાવો"),
+      when: T("Sat 14 – Mon 16 Nov (now booked for 15 Nov only)", "શનિ 14 – સોમ 16 નવે (હાલ ફક્ત 15 નવે બુક છે)"),
+    },
+    {
+      what: T("Tell the homestay: vegetarian, no egg — dinner both nights, and a packed backup lunch for the Jispa day", "હોમસ્ટેને કહો: શાકાહારી, ઈંડું નહીં — બંને રાત રાત્રિ ભોજન, અને જિસ્પાના દિવસ માટે પેક કરેલું બેકઅપ ભોજન"),
+      when: T("When changing the booking", "બુકિંગ બદલતી વખતે"),
+    },
+    {
+      what: T("Ask Hotel Pine View whether the Tempo Traveller can reach the hotel and where it can park", "હોટેલ પાઈન વ્યૂને પૂછો કે ટેમ્પો ટ્રાવેલર હોટેલ સુધી જઈ શકે કે નહીં અને ક્યાં પાર્ક થાય"),
+      when: T("Before 11 Nov", "11 નવે પહેલાં"),
+    },
+    {
+      what: T("Ask the Tempo Traveller operator to carry snow chains for Lahaul", "ટેમ્પો ટ્રાવેલર ઓપરેટરને લાહૌલ માટે સ્નો ચેઇન સાથે રાખવા કહો"),
+      when: T("Before the trip", "પ્રવાસ પહેલાં"),
+    },
+    {
+      what: T("Check both train timings on NTES", "બંને ટ્રેનનો સમય NTES પર તપાસો"),
+      when: T("A few days before 8 Nov", "8 નવે પહેલાં થોડા દિવસ"),
+    },
+    {
+      what: T("Check the Atal Tunnel / Lahaul road status", "અટલ ટનલ / લાહૌલ રસ્તાની સ્થિતિ તપાસો"),
+      when: T("Evening of Fri 13 Nov, in Mandi", "શુક્ર 13 નવેની સાંજે, મંડીમાં"),
+    },
+    { done: true, what: T("Tempo Traveller for the road trip", "રોડ ટ્રિપ માટે ટેમ્પો ટ્રાવેલર"), when: T("Jalandhar 9 Nov → Chandigarh 17 Nov", "જલંધર 9 નવે → ચંડીગઢ 17 નવે") },
+    { done: true, what: T("Trains: 19107 Janmabhoomi Express and 19412 DLPC GNC Express", "ટ્રેન: 19107 જન્મભૂમિ એક્સપ્રેસ અને 19412 DLPC GNC એક્સપ્રેસ"), when: T("8 Nov and 17 Nov", "8 નવે અને 17 નવે") },
+    { done: true, what: T("Hotel Himdhara, Dalhousie", "હોટેલ હિમધારા, ડેલહાઉસી"), when: T("Night of 10 Nov", "10 નવેની રાત") },
+    { done: true, what: T("Hotel Pine View, Dharamshala", "હોટેલ પાઈન વ્યૂ, ધર્મશાળા"), when: T("Nights of 11–12 Nov", "11–12 નવેની રાત") },
+  ];
 
   trip.route = [
     T("Ahmedabad", "અમદાવાદ"), T("Amritsar", "અમૃતસર"), T("Dalhousie", "ડેલહાઉસી"),

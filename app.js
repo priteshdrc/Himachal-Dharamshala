@@ -61,6 +61,11 @@
       en: { relaxed: "Relaxed", moderate: "Moderate", busy: "Busy", tough: "Tough" },
       gu: { relaxed: "આરામદાયક", moderate: "મધ્યમ", busy: "વ્યસ્ત", tough: "થકવનારો" },
     },
+    todo: { en: "Still to do", gu: "બાકી કામ" },
+    todoDone: { en: "Done", gu: "થઈ ગયું" },
+    todoLeft: { en: (n) => `${n} left`, gu: (n) => `${n} બાકી` },
+    todoFind: { en: "Find on Maps", gu: "નકશામાં શોધો" },
+    todoJump: { en: (n) => `${n} things still to do — see the list at the bottom ↓`, gu: (n) => `${n} કામ બાકી — યાદી નીચે જુઓ ↓` },
     planBadge: { en: "Alternative plan · earlier version", gu: "વૈકલ્પિક પ્લાન · અગાઉનો" },
     altBookings: { en: "Bookings to change", gu: "બદલવાનાં બુકિંગ" },
     seeDay: { en: (n) => `See Day ${n} →`, gu: (n) => `દિવસ ${n} જુઓ →` },
@@ -170,7 +175,8 @@
       note.innerHTML = `
         <h2>${esc(t(n.title))}</h2>
         <ul>${n.changes.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>
-        ${n.bookings ? `<h3>${esc(ui("altBookings"))}</h3><ul>${n.bookings.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>` : ""}`;
+        ${n.bookings ? `<h3>${esc(ui("altBookings"))}</h3><ul>${n.bookings.map((c) => `<li>${esc(t(c))}</li>`).join("")}</ul>` : ""}
+        ${trip.todo ? `<a class="todo-jump" href="#todo">${esc(ui("todoJump", trip.todo.filter((x) => !x.done).length))}</a>` : ""}`;
     }
     $("#dates").textContent = t(trip.dates);
     $("#route").innerHTML = trip.route.map((r) => `<li>${esc(t(r))}</li>`).join("");
@@ -603,6 +609,30 @@
     map.once("moveend", () => mapMarkers[i].openPopup());
   });
 
+  // ---------- Checklist at the end of the page ----------
+  function renderTodo() {
+    const el = $("#todo");
+    if (!el) return;
+    const list = trip.todo || [];
+    el.hidden = !list.length;
+    if (!list.length) return;
+    const item = (x) => `
+      <li class="${x.done ? "is-done" : ""}">
+        <span class="tick" aria-hidden="true">${x.done ? "✓" : ""}</span>
+        <div>
+          <b>${esc(t(x.what))}</b>
+          ${x.when ? `<small>${esc(t(x.when))}</small>` : ""}
+          ${x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">${ICON.pin}<span>${esc(ui("todoFind"))}</span></a>` : ""}
+        </div>
+      </li>`;
+    const open = list.filter((x) => !x.done);
+    const done = list.filter((x) => x.done);
+    el.innerHTML = `
+      <h2>${esc(ui("todo"))} <span class="todo-count">${esc(ui("todoLeft", open.length))}</span></h2>
+      <ul class="todo-list">${open.map(item).join("")}</ul>
+      ${done.length ? `<h3>${esc(ui("todoDone"))}</h3><ul class="todo-list">${done.map(item).join("")}</ul>` : ""}`;
+  }
+
   function render() {
     renderStatic();
     renderHero();
@@ -610,6 +640,7 @@
     renderGlance();
     renderJourney();
     renderDays();
+    renderTodo();
     watchActiveDay();
   }
 

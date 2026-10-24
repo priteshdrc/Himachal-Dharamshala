@@ -189,6 +189,15 @@ table { border-collapse: collapse; width: 100%; }
 .kv td.hl { color: #2f6b55; font-weight: 600; }
 .stay.pending .kv td.hl { color: #a5660b; }
 .mono { font-variant-numeric: tabular-nums; letter-spacing: .03em; }
+.todo { break-inside: avoid; margin-top: 22px; padding: 12px 16px; border: 1px solid #e6e0d4; border-radius: 12px; }
+.todo h2 { margin: 0 0 6px; font-size: 15pt; }
+.todo h3 { margin: 10px 0 4px; font-size: 10pt; color: #7a8196; }
+.todo ul { list-style: none; margin: 0; padding: 0; }
+.todo li { display: flex; gap: 10px; padding: 5px 0; border-top: 1px solid #eee7da; font-size: 10pt; }
+.todo li small { display: block; color: #7a8196; font-size: 9pt; }
+.todo .chk { flex: none; width: 14px; height: 14px; margin-top: 2px; border: 1.5px solid #a5660b; border-radius: 3px; font-size: 9pt; line-height: 12px; text-align: center; color: #fff; }
+.todo li.done .chk { background: #2f6b55; border-color: #2f6b55; }
+.todo li.done b { color: #7a8196; font-weight: 600; }
 .foot { margin-top: 14px; color: #7a8196; font-size: 8.5pt; }
 </style></head><body>
   <div class="cover">
@@ -205,6 +214,13 @@ table { border-collapse: collapse; width: 100%; }
     <div class="panel"><h3>${u.trains}</h3><table class="list">${trains}</table><p class="foot">${u.footer}</p></div>
   </div>
   ${days}
+  ${trip.todo && trip.todo.length ? `
+  <section class="todo">
+    <h2>${lang === "gu" ? "બાકી કામ" : "Still to do"}</h2>
+    <ul>${trip.todo.filter((x) => !x.done).map((x) => `<li><span class="chk"></span><div><b>${esc(t(x.what))}</b>${x.when ? `<small>${esc(t(x.when))}</small>` : ""}</div></li>`).join("")}</ul>
+    <h3>${lang === "gu" ? "થઈ ગયું" : "Done"}</h3>
+    <ul>${trip.todo.filter((x) => x.done).map((x) => `<li class="done"><span class="chk">✓</span><div><b>${esc(t(x.what))}</b>${x.when ? `<small>${esc(t(x.when))}</small>` : ""}</div></li>`).join("")}</ul>
+  </section>` : ""}
 </body></html>`;
 }
 
