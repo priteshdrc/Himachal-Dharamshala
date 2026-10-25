@@ -28,7 +28,27 @@
 
   // ---------- Checklist shown at the bottom of the page ----------
   // Set done: true when something is booked or sorted.
+  // Payment deadlines are from the MakeMyTrip / Goibibo reminder emails;
+  // an unpaid booking is auto-cancelled after its deadline.
   trip.todo = [
+    {
+      pay: true,
+      what: T("Pay Hotel Himdhara, Dalhousie — ₹7,936", "હોટેલ હિમધારા, ડેલહાઉસીનું ચુકવણું — ₹7,936"),
+      when: T("By Sat 7 Nov, 11:59 PM · MakeMyTrip", "શનિ 7 નવે, રાત્રે 11:59 સુધીમાં · MakeMyTrip"),
+      note: T("Nothing paid yet — the booking is auto-cancelled if unpaid by then.", "હજી કંઈ ચૂકવ્યું નથી — ત્યાં સુધીમાં ન ચૂકવો તો બુકિંગ આપોઆપ રદ થાય."),
+    },
+    {
+      pay: true,
+      what: T("Pay Hotel Pine View, Dharamshala — ₹16,289", "હોટેલ પાઈન વ્યૂ, ધર્મશાળાનું ચુકવણું — ₹16,289"),
+      when: T("By Mon 9 Nov, 11:59 PM · MakeMyTrip", "સોમ 9 નવે, રાત્રે 11:59 સુધીમાં · MakeMyTrip"),
+      note: T("Nothing paid yet. The deadline falls during the trip — pay before leaving on 8 Nov.", "હજી કંઈ ચૂકવ્યું નથી. છેલ્લી તારીખ પ્રવાસ દરમિયાન આવે છે — 8 નવેએ નીકળતાં પહેલાં ચૂકવી દો."),
+    },
+    {
+      pay: true,
+      what: T("Pay Valley View Homestay, Lahaul — ₹8,088", "વેલી વ્યૂ હોમસ્ટે, લાહૌલનું ચુકવણું — ₹8,088"),
+      when: T("By Wed 11 Nov, 11:59 PM · Goibibo", "બુધ 11 નવે, રાત્રે 11:59 સુધીમાં · Goibibo"),
+      note: T("Amount is for the current 1-night booking — it will change once extended to 2 nights. Pay after changing the dates, before leaving on 8 Nov.", "રકમ હાલના 1 રાતના બુકિંગની છે — 2 રાત કર્યા પછી બદલાશે. તારીખ બદલ્યા પછી, 8 નવેએ નીકળતાં પહેલાં ચૂકવો."),
+    },
     {
       what: T("Book a hotel in Amritsar near the Golden Temple", "અમૃતસરમાં ગોલ્ડન ટેમ્પલ નજીક હોટેલ બુક કરો"),
       when: T("Night of Mon 9 Nov", "સોમ 9 નવેની રાત"),
@@ -65,8 +85,8 @@
     },
     { done: true, what: T("Tempo Traveller for the road trip", "રોડ ટ્રિપ માટે ટેમ્પો ટ્રાવેલર"), when: T("Jalandhar 9 Nov → Chandigarh 17 Nov", "જલંધર 9 નવે → ચંડીગઢ 17 નવે") },
     { done: true, what: T("Trains: 19107 Janmabhoomi Express and 19412 DLPC GNC Express", "ટ્રેન: 19107 જન્મભૂમિ એક્સપ્રેસ અને 19412 DLPC GNC એક્સપ્રેસ"), when: T("8 Nov and 17 Nov", "8 નવે અને 17 નવે") },
-    { done: true, what: T("Hotel Himdhara, Dalhousie", "હોટેલ હિમધારા, ડેલહાઉસી"), when: T("Night of 10 Nov", "10 નવેની રાત") },
-    { done: true, what: T("Hotel Pine View, Dharamshala", "હોટેલ પાઈન વ્યૂ, ધર્મશાળા"), when: T("Nights of 11–12 Nov", "11–12 નવેની રાત") },
+    { done: true, what: T("Hotel Himdhara, Dalhousie — booked", "હોટેલ હિમધારા, ડેલહાઉસી — બુક"), when: T("Night of 10 Nov · payment still due, see above", "10 નવેની રાત · ચુકવણું બાકી, ઉપર જુઓ") },
+    { done: true, what: T("Hotel Pine View, Dharamshala — booked", "હોટેલ પાઈન વ્યૂ, ધર્મશાળા — બુક"), when: T("Nights of 11–12 Nov · payment still due, see above", "11–12 નવેની રાત · ચુકવણું બાકી, ઉપર જુઓ") },
   ];
 
   trip.route = [

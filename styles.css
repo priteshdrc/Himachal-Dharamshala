@@ -440,6 +440,9 @@ body.gu .todo h3 { text-transform: none; letter-spacing: 0; font-size: 14px; }
   display: grid; place-items: center; font-size: 13px; font-weight: 800; color: #fff;
 }
 .todo-list li.is-done .tick { background: var(--pine); border-color: var(--pine); }
+.tick.pay { color: var(--amber); font-size: 12.5px; }
+.todo-list li.is-done .tick.pay { color: #fff; }
+.todo-list small.due { color: var(--accent); font-weight: 700; }
 .todo-list li div { min-width: 0; }
 .todo-list b { display: block; font-size: 15px; line-height: 1.35; }
 .todo-list li.is-done b { color: var(--muted); font-weight: 600; }

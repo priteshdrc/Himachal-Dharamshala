@@ -618,10 +618,11 @@
     if (!list.length) return;
     const item = (x) => `
       <li class="${x.done ? "is-done" : ""}">
-        <span class="tick" aria-hidden="true">${x.done ? "✓" : ""}</span>
+        <span class="tick${x.pay ? " pay" : ""}" aria-hidden="true">${x.done ? "✓" : x.pay ? "₹" : ""}</span>
         <div>
           <b>${esc(t(x.what))}</b>
-          ${x.when ? `<small>${esc(t(x.when))}</small>` : ""}
+          ${x.when ? `<small class="${x.pay && !x.done ? "due" : ""}">${esc(t(x.when))}</small>` : ""}
+          ${x.note ? `<small>${esc(t(x.note))}</small>` : ""}
           ${x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">${ICON.pin}<span>${esc(ui("todoFind"))}</span></a>` : ""}
         </div>
       </li>`;

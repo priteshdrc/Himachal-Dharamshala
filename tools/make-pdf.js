@@ -195,6 +195,7 @@ table { border-collapse: collapse; width: 100%; }
 .todo ul { list-style: none; margin: 0; padding: 0; }
 .todo li { display: flex; gap: 10px; padding: 5px 0; border-top: 1px solid #eee7da; font-size: 10pt; }
 .todo li small { display: block; color: #7a8196; font-size: 9pt; }
+.todo li small.due { color: #c8541a; font-weight: 700; }
 .todo .chk { flex: none; width: 14px; height: 14px; margin-top: 2px; border: 1.5px solid #a5660b; border-radius: 3px; font-size: 9pt; line-height: 12px; text-align: center; color: #fff; }
 .todo li.done .chk { background: #2f6b55; border-color: #2f6b55; }
 .todo li.done b { color: #7a8196; font-weight: 600; }
@@ -217,7 +218,7 @@ table { border-collapse: collapse; width: 100%; }
   ${trip.todo && trip.todo.length ? `
   <section class="todo">
     <h2>${lang === "gu" ? "બાકી કામ" : "Still to do"}</h2>
-    <ul>${trip.todo.filter((x) => !x.done).map((x) => `<li><span class="chk"></span><div><b>${esc(t(x.what))}</b>${x.when ? `<small>${esc(t(x.when))}</small>` : ""}</div></li>`).join("")}</ul>
+    <ul>${trip.todo.filter((x) => !x.done).map((x) => `<li><span class="chk"></span><div><b>${esc(t(x.what))}</b>${x.when ? `<small class="${x.pay ? "due" : ""}">${esc(t(x.when))}</small>` : ""}${x.note ? `<small>${esc(t(x.note))}</small>` : ""}</div></li>`).join("")}</ul>
     <h3>${lang === "gu" ? "થઈ ગયું" : "Done"}</h3>
     <ul>${trip.todo.filter((x) => x.done).map((x) => `<li class="done"><span class="chk">✓</span><div><b>${esc(t(x.what))}</b>${x.when ? `<small>${esc(t(x.when))}</small>` : ""}</div></li>`).join("")}</ul>
   </section>` : ""}
