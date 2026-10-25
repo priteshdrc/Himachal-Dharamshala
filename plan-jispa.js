@@ -45,9 +45,15 @@
     },
     {
       pay: true,
-      what: T("Pay Valley View Homestay, Lahaul — ₹8,088", "વેલી વ્યૂ હોમસ્ટે, લાહૌલનું ચુકવણું — ₹8,088"),
+      what: T("Pay Valley View Homestay, night of 14 Nov — ₹8,068", "વેલી વ્યૂ હોમસ્ટે, 14 નવેની રાતનું ચુકવણું — ₹8,068"),
+      when: T("By Tue 10 Nov, 11:59 PM · Goibibo", "મંગળ 10 નવે, રાત્રે 11:59 સુધીમાં · Goibibo"),
+      note: T("New booking (made 26 Oct). Nothing paid yet — pay before leaving on 8 Nov. Free cancellation until 11 Nov, 11:59 AM.", "નવું બુકિંગ (26 ઑક્ટોબરે કર્યું). હજી કંઈ ચૂકવ્યું નથી — 8 નવેએ નીકળતાં પહેલાં ચૂકવો. 11 નવે સવારે 11:59 સુધી મફત રદ."),
+    },
+    {
+      pay: true,
+      what: T("Pay Valley View Homestay, night of 15 Nov — ₹8,088", "વેલી વ્યૂ હોમસ્ટે, 15 નવેની રાતનું ચુકવણું — ₹8,088"),
       when: T("By Wed 11 Nov, 11:59 PM · Goibibo", "બુધ 11 નવે, રાત્રે 11:59 સુધીમાં · Goibibo"),
-      note: T("Amount is for the current 1-night booking — it will change once extended to 2 nights. Pay after changing the dates, before leaving on 8 Nov.", "રકમ હાલના 1 રાતના બુકિંગની છે — 2 રાત કર્યા પછી બદલાશે. તારીખ બદલ્યા પછી, 8 નવેએ નીકળતાં પહેલાં ચૂકવો."),
+      note: T("Nothing paid yet. The deadline falls during the trip — pay before leaving on 8 Nov.", "હજી કંઈ ચૂકવ્યું નથી. છેલ્લી તારીખ પ્રવાસ દરમિયાન આવે છે — 8 નવેએ નીકળતાં પહેલાં ચૂકવી દો."),
     },
     {
       what: T("Book a hotel in Amritsar near the Golden Temple", "અમૃતસરમાં ગોલ્ડન ટેમ્પલ નજીક હોટેલ બુક કરો"),
@@ -60,12 +66,12 @@
       link: mapsFind("Hotels near Beas River, Mandi, Himachal Pradesh"),
     },
     {
-      what: T("Valley View Homestay: change the Goibibo booking to 2 nights", "વેલી વ્યૂ હોમસ્ટે: Goibibo બુકિંગ 2 રાતનું કરાવો"),
-      when: T("Sat 14 – Mon 16 Nov (now booked for 15 Nov only)", "શનિ 14 – સોમ 16 નવે (હાલ ફક્ત 15 નવે બુક છે)"),
+      what: T("Message the homestay host: the two bookings are one stay (14–16 Nov) — keep the same 3 rooms; arriving ~3 PM on 14 Nov", "હોમસ્ટેના યજમાનને જણાવો: બંને બુકિંગ એક જ રોકાણ છે (14–16 નવે) — એ જ 3 રૂમ રાખે; 14 નવેએ ~બપોરે 3 આગમન"),
+      when: T("Check-in window is 12–2 PM, so tell them in advance", "ચેક-ઇનનો સમય બપોરે 12–2 છે, તેથી અગાઉથી જણાવો"),
     },
     {
-      what: T("Tell the homestay: vegetarian, no egg — dinner both nights, and a packed backup lunch for the Jispa day", "હોમસ્ટેને કહો: શાકાહારી, ઈંડું નહીં — બંને રાત રાત્રિ ભોજન, અને જિસ્પાના દિવસ માટે પેક કરેલું બેકઅપ ભોજન"),
-      when: T("When changing the booking", "બુકિંગ બદલતી વખતે"),
+      what: T("Order meals with the homestay: vegetarian, no egg — dinner both nights, breakfasts, and a packed backup lunch for the Jispa day", "હોમસ્ટે પાસે ભોજન નક્કી કરો: શાકાહારી, ઈંડું નહીં — બંને રાત રાત્રિ ભોજન, નાસ્તો, અને જિસ્પાના દિવસ માટે પેક કરેલું બેકઅપ ભોજન"),
+      when: T("Meals are extra — about ₹170 per person per meal, per the listing", "ભોજનનો ચાર્જ અલગ — લિસ્ટિંગ મુજબ લગભગ ₹170 પ્રતિ વ્યક્તિ પ્રતિ ભોજન"),
     },
     {
       what: T("Ask Hotel Pine View whether the Tempo Traveller can reach the hotel and where it can park", "હોટેલ પાઈન વ્યૂને પૂછો કે ટેમ્પો ટ્રાવેલર હોટેલ સુધી જઈ શકે કે નહીં અને ક્યાં પાર્ક થાય"),
@@ -87,6 +93,7 @@
     { done: true, what: T("Trains: 19107 Janmabhoomi Express and 19412 DLPC GNC Express", "ટ્રેન: 19107 જન્મભૂમિ એક્સપ્રેસ અને 19412 DLPC GNC એક્સપ્રેસ"), when: T("8 Nov and 17 Nov", "8 નવે અને 17 નવે") },
     { done: true, what: T("Hotel Himdhara, Dalhousie — booked", "હોટેલ હિમધારા, ડેલહાઉસી — બુક"), when: T("Night of 10 Nov · payment still due, see above", "10 નવેની રાત · ચુકવણું બાકી, ઉપર જુઓ") },
     { done: true, what: T("Hotel Pine View, Dharamshala — booked", "હોટેલ પાઈન વ્યૂ, ધર્મશાળા — બુક"), when: T("Nights of 11–12 Nov · payment still due, see above", "11–12 નવેની રાત · ચુકવણું બાકી, ઉપર જુઓ") },
+    { done: true, what: T("Valley View Homestay, Gondla — booked for both nights", "વેલી વ્યૂ હોમસ્ટે, ગોંદલા — બંને રાત બુક"), when: T("14 Nov and 15 Nov (two Goibibo bookings) · payment still due, see above", "14 અને 15 નવે (બે Goibibo બુકિંગ) · ચુકવણું બાકી, ઉપર જુઓ") },
   ];
 
   trip.route = [
@@ -240,13 +247,18 @@
   };
 
   // ---------- Day 7: Mandi → Atal Tunnel → Sissu → Gondla ----------
-  const homestay = (nights) => ({
+  // Two Goibibo bookings for the same 3 rooms: 14 Nov (new) and 15 Nov (original).
+  const homestay14 = {
     ...day[8].stay,
-    status: "pending",
-    nights,
-    checkin: T("Sat 14 Nov", "શનિ 14 નવે"),
-    checkout: T("Mon 16 Nov, before 10:00 AM", "સોમ 16 નવે, સવારે 10:00 પહેલાં"),
-  });
+    id: "GH••••••••1666",
+    checkin: T("Sat 14 Nov, 12:00 – 02:00 PM", "શનિ 14 નવે, બપોરે 12:00 – 02:00"),
+    checkout: T("Sun 15 Nov, before 10:00 AM", "રવિ 15 નવે, સવારે 10:00 પહેલાં"),
+    nights: T("Night 1 of 2 · first of two bookings — ask the host to keep the same rooms", "2માંથી પહેલી રાત · બેમાંથી પહેલું બુકિંગ — યજમાનને એ જ રૂમ રાખવા કહો"),
+  };
+  const homestay15 = {
+    ...day[8].stay,
+    nights: T("Night 2 of 2 · second booking, same rooms", "2માંથી બીજી રાત · બીજું બુકિંગ, એ જ રૂમ"),
+  };
   const d7 = {
     ...day[7],
     title: T("Through the Tunnel to Lahaul", "અટલ ટનલ થઈને લાહૌલ"),
@@ -272,7 +284,7 @@
         tip: T("Gondla is before Keylong, so there's no need to drive on to Keylong today — you pass it tomorrow.", "ગોંદલા કેલોંગ પહેલાં આવે છે, તેથી આજે કેલોંગ જવાની જરૂર નથી — કાલે ત્યાંથી પસાર થશો."),
       },
     ],
-    stay: homestay(T("Change booking: 2 nights, 14–15 Nov · Night 1", "બુકિંગ બદલો: 2 રાત, 14–15 નવે · પહેલી રાત")),
+    stay: homestay14,
     night: T("Gondla / Lahaul", "ગોંદલા / લાહૌલ"),
     wx: [wxPlace("sissu"), wxPlace("keylong")],
     food: [
@@ -327,7 +339,7 @@
         tip: T("Icy roads after dark are the main risk — don't stay out late.", "અંધારા પછી બરફીલા રસ્તા સૌથી મોટું જોખમ છે — મોડે સુધી બહાર ન રહો."),
       },
     ],
-    stay: homestay(T("Night 2 of 2", "બીજી રાત")),
+    stay: homestay15,
     night: T("Gondla / Lahaul", "ગોંદલા / લાહૌલ"),
     wx: [wxPlace("jispa"), wxPlace("keylong")],
     food: [
